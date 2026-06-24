@@ -177,7 +177,7 @@ export default function AppSidebar({ sidebarOpen, userRole = "ADMIN" }) {
         className="shrink-0 flex items-center justify-center px-5 py-4"
         style={{ borderBottom: "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)" }}
       >
-        <img src={LOGO_IMG} alt="DigiOptics" className="h-7 object-contain" />
+        <img src={LOGO_IMG} alt="Indian Lens Wholesale" className="h-7 object-contain" />
       </div>
 
       {/* ── Scrollable nav ── */}

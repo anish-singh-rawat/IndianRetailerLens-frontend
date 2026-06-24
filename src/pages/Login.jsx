@@ -77,7 +77,7 @@ export default function Login() {
 
       {/* ── Fixed top-right logo ── */}
       <div className="fixed top-5 right-7 z-50">
-        <img src={LOGO_IMG_2} alt="DigiOptics" className="h-8 w-auto object-contain opacity-80" />
+        <img src={LOGO_IMG_2} alt="Indian Lens Wholesale" className="h-8 w-auto object-contain opacity-80" />
       </div>
 
       {/* ── Main card ── */}
@@ -130,7 +130,7 @@ export default function Login() {
 
             {/* mascot */}
             <div className="mascot-float relative z-10">
-              <img src={MASCOT_GIF} alt="DigiOptics mascot" className="w-[220px] drop-shadow-xl" />
+              <img src={MASCOT_GIF} alt="Indian Lens Wholesale mascot" className="w-[220px] drop-shadow-xl" />
             </div>
           </div>
 
@@ -162,7 +162,7 @@ export default function Login() {
 
             {/* Logo */}
             <div className="mb-6">
-              <img src={LOGO_IMG} alt="DigiOptics" className="h-20 w-auto object-contain" />
+              <img src={LOGO_IMG} alt="Indian Lens Wholesale" className="h-20 w-auto object-contain" />
             </div>
 
             {/* Separator */}
@@ -261,7 +261,7 @@ export default function Login() {
               <a href="https://digibysr.com" target="_blank" rel="noopener noreferrer">
                 <img
                   src={LOGO_IMG}
-                  alt="DigiOptics by DigiBySR"
+                  alt="Indian Lens Wholesale by DigiBySR"
                   className="h-5 w-auto object-contain transition-opacity"
                   style={{ opacity: 0.35 }}
                   onMouseEnter={e => { e.currentTarget.style.opacity = 0.65; }}
