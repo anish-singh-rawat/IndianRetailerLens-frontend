@@ -1210,14 +1210,22 @@ export default function NewJobCard() {
                                         noOptionsMessage={() => products[index].category ? "No products found" : "Select category first"}
                                         styles={{
                                             control: (base) => ({
-                                                ...base, borderColor: "#e5e7eb", borderRadius: "0.5rem",
+                                                ...base,
+                                                borderColor: "color-mix(in oklab, var(--foreground) 14%, transparent)",
+                                                borderRadius: "0.5rem",
                                                 minHeight: "38px", fontSize: "0.875rem",
-                                                // Free row gets a teal tint instead of gray to show it's editable
-                                                backgroundColor: p.isFreeItem ? "#f0fdfa" : "#fff",
+                                                backgroundColor: p.isFreeItem
+                                                    ? "color-mix(in oklab, var(--primary) 14%, transparent)"
+                                                    : "color-mix(in oklab, var(--foreground) 6%, transparent)",
                                                 boxShadow: "none",
-                                                "&:hover": { borderColor: p.isFreeItem ? "#5eead4" : "#fdba74" }
+                                                "&:hover": { borderColor: "var(--primary)" }
                                             }),
+                                            singleValue: (base) => ({ ...base, color: "var(--foreground)" }),
+                                            input: (base) => ({ ...base, color: "var(--foreground)" }),
+                                            menu: (base) => ({ ...base, background: "var(--card)", border: "1px solid color-mix(in oklab, var(--foreground) 12%, transparent)" }),
+                                            option: (base, state) => ({ ...base, background: state.isFocused ? "color-mix(in oklab, var(--primary) 14%, transparent)" : "transparent", color: "var(--foreground)" }),
                                             indicatorSeparator: () => ({ display: "none" }),
+                                            dropdownIndicator: (base) => ({ ...base, color: "var(--muted-foreground)" }),
                                         }}
                                     />
 

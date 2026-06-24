@@ -596,7 +596,7 @@ export default function DigiAIPage() {
           <div style={{ maxWidth: 760, margin: "0 auto" }}>
             <div style={{
               display: "flex", gap: 8, alignItems: "flex-end",
-              background: "#fff",
+              background: "color-mix(in oklab, var(--card) 75%, transparent)",
               border: `1.5px solid ${sendActive ? T.primary : "var(--color-border-secondary)"}`,
               borderRadius: "var(--border-radius-lg)",
               padding: "7px 7px 7px 13px",

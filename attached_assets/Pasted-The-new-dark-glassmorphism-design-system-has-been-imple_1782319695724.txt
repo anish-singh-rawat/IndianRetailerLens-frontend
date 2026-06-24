@@ -1,0 +1,111 @@
+The new dark glassmorphism design system has been implemented, but many existing pages and reusable components are still rendering with legacy white/light backgrounds.
+
+Current Issue:
+Several routes are still showing white cards, white forms, white page containers, light sections, and inconsistent styling.
+
+Examples:
+- /
+- /customer/register
+- Customer management pages
+- Staff pages
+- Vendor pages
+- Order pages
+- Returns & Exchanges pages
+- Repair pages
+- Reports pages
+- Drafts pages
+- Any modal, drawer, popup, table, wizard, form, or reusable component still displaying a white background
+
+Important:
+Do NOT redesign anything.
+Do NOT create a new design system.
+Do NOT invent new colors.
+
+Use ONLY the existing design system already implemented in this project.
+
+Requirements:
+
+1. Perform a complete project-wide audit.
+
+2. Find every component, layout, page, modal, table, form, card, widget, and container still using:
+   - bg-white
+   - white backgrounds
+   - light cards
+   - hardcoded #fff colors
+   - gray-50
+   - gray-100
+   - slate-50
+   - light theme utility classes
+   - inline background colors
+
+3. Replace all legacy styles with the existing dark glassmorphism system:
+   - midnight navy background
+   - glass / glass-strong cards
+   - teal and cyan accents
+   - shadow-glow
+   - shadow-elegant
+   - existing OKLCH variables
+   - existing typography system
+   - existing spacing system
+
+4. Ensure all reusable components inherit the theme automatically:
+   - Cards
+   - Form wrappers
+   - Inputs
+   - Selects
+   - Textareas
+   - Tables
+   - Modals
+   - Drawers
+   - Sidebars
+   - Dashboard widgets
+   - Empty states
+   - Loading screens
+   - Toasts
+   - Alerts
+
+5. Verify all CRUD forms:
+   - Customer Register
+   - Staff Register
+   - Vendor Forms
+   - Order Forms
+   - Repair Forms
+   - Exchange & Return Forms
+   - Any multi-step forms
+
+6. Verify all data tables:
+   - Dark background
+   - Correct borders
+   - Correct hover states
+   - Correct text colors
+   - No white containers remaining
+
+7. Verify all layouts:
+   - Dashboard
+   - Authentication
+   - Management pages
+   - Nested routes
+
+8. Any component using old theme tokens must be migrated to the current design system.
+
+9. Search the entire codebase for:
+   bg-white
+   text-black
+   border-gray*
+   bg-gray*
+   bg-slate*
+   #ffffff
+   rgb(255,255,255)
+
+   and replace them with design-system-based tokens where appropriate.
+
+10. After completing the migration:
+    - Visit every route
+    - Check every major screen
+    - Ensure there are ZERO remaining white-background sections unless explicitly intended.
+
+Finally provide:
+- List of files updated
+- Components updated
+- Pages updated
+- Any remaining legacy components that still require manual review

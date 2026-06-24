@@ -1,50 +1,47 @@
-// import { Link } from "react-router-dom";
-
-// export default function NotFound() {
-//   return (
-//     <div className="flex items-center justify-center min-h-screen bg-gray-50 px-6">
-//       <div className="text-center">
-//         <h1 className="text-7xl font-bold text-red-500">404</h1>
-
-//         <h2 className="mt-4 text-2xl font-semibold text-gray-800">
-//           Page Not Found
-//         </h2>
-
-//         <p className="mt-2 text-gray-500">
-//           The page you are looking for does not exist or you don’t have access.
-//         </p>
-
-//         {/* <Link
-//           to="/"
-//           className="inline-block mt-6 px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition"
-//         >
-//           Go Back to Dashboard
-//         </Link> */}
-//       </div>
-//     </div>
-//   );
-// }
-
-
 import { Link } from "react-router-dom";
 
 export default function NotFound() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 px-6">
-      <div className="text-center animate-fadeIn">
-        <h1 className="text-8xl font-extrabold text-gray-800 tracking-widest animate-bounce">
+    <div className="flex items-center justify-center min-h-screen px-6"
+      style={{ background: "var(--background)" }}>
+      <div className="text-center card-enter">
+        <div
+          className="text-8xl font-extrabold tracking-widest mb-2 text-gradient-primary"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
           404
-        </h1>
+        </div>
 
-        <div className="bg-red-500 text-white px-4 py-1 text-sm rounded-md inline-block mt-4 shadow-md animate-pulse">
+        <div
+          className="inline-flex items-center px-4 py-1 text-xs font-bold rounded-full mb-6 animate-pulse"
+          style={{
+            background: "color-mix(in oklab, var(--destructive) 18%, transparent)",
+            border: "1px solid color-mix(in oklab, var(--destructive) 40%, transparent)",
+            color: "var(--destructive)",
+          }}
+        >
           PAGE NOT FOUND
         </div>
 
-        <p className="mt-6 text-gray-600 max-w-md mx-auto">
-          The page you are looking for doesn’t exist or may have been moved.
-          Please check the URL.
+        <p
+          className="max-w-md mx-auto text-sm leading-relaxed mb-8"
+          style={{ color: "var(--muted-foreground)" }}
+        >
+          The page you're looking for doesn't exist or may have been moved.
+          Please check the URL or return to the dashboard.
         </p>
-        
+
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold transition-all active:scale-95"
+          style={{
+            background: "linear-gradient(135deg, var(--primary) 0%, var(--primary-glow) 100%)",
+            color: "var(--primary-foreground)",
+            boxShadow: "0 4px 20px -6px color-mix(in oklab, var(--primary) 55%, transparent)",
+          }}
+        >
+          ← Back to Dashboard
+        </Link>
       </div>
     </div>
   );

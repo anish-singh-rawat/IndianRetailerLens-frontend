@@ -3605,8 +3605,8 @@ function LivePreviewLabel({ value, row, layout, printType, globalFields, typo, l
 
   if (!value?.trim()) {
     return (
-      <div style={{ width: W, height: H, border: "0.5px solid #d1d5db", borderRadius: 2, background: "#fafafa", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <span style={{ fontSize: 9, color: "#9ca3af" }}>No code</span>
+      <div style={{ width: W, height: H, border: "0.5px solid color-mix(in oklab, var(--foreground) 14%, transparent)", borderRadius: 2, background: "color-mix(in oklab, var(--foreground) 6%, transparent)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <span style={{ fontSize: 9, color: "var(--muted-foreground)" }}>No code</span>
       </div>
     );
   }
@@ -3631,8 +3631,8 @@ function LivePreviewLabel({ value, row, layout, printType, globalFields, typo, l
 
   // Show a placeholder outline where the image would be, so the user can see the zone
   const imgPlaceholder = suppressImg ? (
-    <div style={{ width: imgH * 1.5, height: imgH, border: "0.8px dashed #fbbf24", borderRadius: 2, background: "#fffbeb", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 1 }}>
-      <span style={{ fontSize: 7, color: "#f59e0b", fontWeight: 600 }}>hidden</span>
+    <div style={{ width: imgH * 1.5, height: imgH, border: "0.8px dashed color-mix(in oklab, var(--warning) 60%, transparent)", borderRadius: 2, background: "color-mix(in oklab, var(--warning) 10%, transparent)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 1 }}>
+      <span style={{ fontSize: 7, color: "var(--warning)", fontWeight: 600 }}>hidden</span>
     </div>
   ) : null;
 
@@ -3688,7 +3688,7 @@ function LivePreviewLabel({ value, row, layout, printType, globalFields, typo, l
   ) : null;
 
   return (
-    <div style={{ width: W, height: H, display: "flex", flexDirection: "row", border: "0.5px solid #d1d5db", borderRadius: 2, background: "#fff", overflow: "hidden", flexShrink: 0 }}>
+    <div style={{ width: W, height: H, display: "flex", flexDirection: "row", border: "0.5px solid color-mix(in oklab, var(--foreground) 14%, transparent)", borderRadius: 2, background: "color-mix(in oklab, var(--card) 72%, transparent)", overflow: "hidden", flexShrink: 0 }}>
       {imageSide === "right" ? <>{textCol}{imageCol}</> : <>{imageCol}{textCol}</>}
     </div>
   );

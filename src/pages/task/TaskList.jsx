@@ -142,7 +142,7 @@ function TaskDetailModal({ task, onClose, onStatusUpdate, isAdmin }) {
 
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100"
-                    style={{ background: "linear-gradient(135deg,#fff8f5,#fff)" }}>
+                    style={{ background: "color-mix(in oklab, var(--primary) 10%, transparent)" }}>
                     <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-xl bg-orange-100 flex items-center justify-center">
                             <HiOutlineClipboardList size={18} className="text-orange-500" />
@@ -328,7 +328,7 @@ function TaskTable({ title, icon: Icon, data, columns }) {
 
             {/* Header */}
             <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-4 border-b border-gray-100"
-                style={{ background: "linear-gradient(135deg,#fff8f5 0%,#fff 100%)" }}>
+                style={{ background: "color-mix(in oklab, var(--primary) 10%, transparent)" }}>
                 <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-orange-100 flex items-center justify-center">
                         <Icon size={18} className="text-orange-500" />

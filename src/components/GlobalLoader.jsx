@@ -6,8 +6,11 @@ export default function Loader() {
   if (!loading) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/25 backdrop-blur-sm">
-      <div className="w-16 h-16 border-4 border-gray-300 border-t-orange-500 rounded-full animate-spin"></div>
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/30 backdrop-blur-sm">
+      <div
+        className="w-16 h-16 rounded-full animate-spin"
+        style={{ border: "4px solid color-mix(in oklab, var(--foreground) 12%, transparent)", borderTopColor: "var(--primary)" }}
+      />
     </div>
   );
 }

@@ -298,3 +298,287 @@
   color: var(--destructive);
   margin-top: 0.25rem;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL DARK THEME OVERRIDES
+   Automatically adapts legacy light Tailwind classes to the dark
+   glassmorphism design system everywhere inside .dark context.
+   AppLayout wraps the entire app in <div class="dark">, so every
+   page/component/modal/table below it inherits these overrides.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Page / section backgrounds ──────────────────────────────── */
+.dark .min-h-screen.bg-gray-50,
+.dark .min-h-screen.bg-stone-50,
+.dark .min-h-screen.bg-gray-100 {
+  background: transparent !important;
+}
+
+/* arbitrary bg values used as page wrappers */
+.dark [class*="bg-[#fafaf8]"],
+.dark [class*="bg-[#fafafa]"],
+.dark [class*="bg-[#f8f8f8]"] {
+  background: transparent !important;
+}
+
+.dark .bg-gradient-to-br.from-gray-50,
+.dark .bg-gradient-to-br.from-stone-50,
+.dark .bg-gradient-to-br.from-gray-100 {
+  background: var(--background) !important;
+}
+
+/* ── Card / panel backgrounds ─────────────────────────────────── */
+.dark .bg-white {
+  background: color-mix(in oklab, var(--card) 72%, transparent) !important;
+  border-color: color-mix(in oklab, var(--foreground) 10%, transparent);
+}
+
+.dark .bg-gray-50,
+.dark .bg-stone-50 {
+  background: color-mix(in oklab, var(--card) 42%, transparent) !important;
+}
+
+.dark .bg-gray-100,
+.dark .bg-stone-100 {
+  background: color-mix(in oklab, var(--foreground) 8%, transparent) !important;
+}
+
+.dark .bg-gray-200,
+.dark .bg-stone-200 {
+  background: color-mix(in oklab, var(--foreground) 12%, transparent) !important;
+}
+
+/* ── Orange accent → teal primary ────────────────────────────── */
+.dark .bg-orange-50 {
+  background: color-mix(in oklab, var(--primary) 14%, transparent) !important;
+}
+.dark .bg-orange-100 {
+  background: color-mix(in oklab, var(--primary) 22%, transparent) !important;
+}
+.dark .bg-orange-400 {
+  background: var(--primary) !important;
+}
+.dark .bg-orange-500 {
+  background: linear-gradient(135deg, var(--primary) 0%, color-mix(in oklab, var(--primary-glow) 60%, var(--primary)) 100%) !important;
+  border-color: transparent !important;
+}
+.dark .bg-orange-600 {
+  background: color-mix(in oklab, var(--primary) 80%, var(--background)) !important;
+}
+.dark .hover\:bg-orange-600:hover {
+  background: color-mix(in oklab, var(--primary-glow) 55%, var(--primary)) !important;
+}
+
+/* ── Colored semantic tints ───────────────────────────────────── */
+.dark .bg-red-50 {
+  background: color-mix(in oklab, var(--destructive) 14%, transparent) !important;
+}
+.dark .bg-red-100 {
+  background: color-mix(in oklab, var(--destructive) 22%, transparent) !important;
+}
+.dark .bg-emerald-50,
+.dark .bg-green-50 {
+  background: color-mix(in oklab, var(--success) 14%, transparent) !important;
+}
+.dark .bg-blue-50 {
+  background: color-mix(in oklab, var(--accent) 25%, transparent) !important;
+}
+.dark .bg-purple-50 {
+  background: color-mix(in oklab, oklch(0.55 0.15 300) 14%, transparent) !important;
+}
+.dark .bg-yellow-50 {
+  background: color-mix(in oklab, var(--warning) 14%, transparent) !important;
+}
+.dark .bg-sky-50 {
+  background: color-mix(in oklab, var(--primary) 18%, transparent) !important;
+}
+
+/* ── Hover backgrounds ────────────────────────────────────────── */
+.dark .hover\:bg-gray-50:hover,
+.dark .hover\:bg-stone-50:hover {
+  background: color-mix(in oklab, var(--foreground) 6%, transparent) !important;
+}
+.dark .hover\:bg-gray-100:hover,
+.dark .hover\:bg-stone-100:hover {
+  background: color-mix(in oklab, var(--foreground) 10%, transparent) !important;
+}
+.dark .hover\:bg-orange-100:hover {
+  background: color-mix(in oklab, var(--primary) 28%, transparent) !important;
+}
+.dark .hover\:bg-orange-50:hover {
+  background: color-mix(in oklab, var(--primary) 16%, transparent) !important;
+}
+
+/* ── Text — grays ─────────────────────────────────────────────── */
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-gray-700,
+.dark .text-stone-900,
+.dark .text-stone-800,
+.dark .text-stone-700 {
+  color: var(--foreground) !important;
+}
+.dark .text-gray-600,
+.dark .text-stone-600 {
+  color: color-mix(in oklab, var(--foreground) 85%, transparent) !important;
+}
+.dark .text-gray-500,
+.dark .text-stone-500 {
+  color: var(--muted-foreground) !important;
+}
+.dark .text-gray-400,
+.dark .text-stone-400 {
+  color: color-mix(in oklab, var(--muted-foreground) 80%, transparent) !important;
+}
+.dark .text-gray-300,
+.dark .text-stone-300 {
+  color: color-mix(in oklab, var(--muted-foreground) 60%, transparent) !important;
+}
+
+/* ── Text — orange accents → teal ────────────────────────────── */
+.dark .text-orange-800,
+.dark .text-orange-700 {
+  color: var(--primary-glow) !important;
+}
+.dark .text-orange-600,
+.dark .text-orange-500 {
+  color: var(--primary) !important;
+}
+.dark .text-orange-400 {
+  color: color-mix(in oklab, var(--primary-glow) 85%, transparent) !important;
+}
+.dark .text-orange-300 {
+  color: color-mix(in oklab, var(--primary-glow) 65%, transparent) !important;
+}
+.dark .hover\:text-orange-600:hover,
+.dark .hover\:text-orange-700:hover {
+  color: var(--primary-glow) !important;
+}
+
+/* ── Borders ─────────────────────────────────────────────────── */
+.dark .border-gray-100,
+.dark .border-stone-100 {
+  border-color: color-mix(in oklab, var(--foreground) 9%, transparent) !important;
+}
+.dark .border-gray-200,
+.dark .border-stone-200 {
+  border-color: color-mix(in oklab, var(--foreground) 12%, transparent) !important;
+}
+.dark .border-gray-300,
+.dark .border-stone-300 {
+  border-color: color-mix(in oklab, var(--foreground) 18%, transparent) !important;
+}
+.dark .border-orange-100 {
+  border-color: color-mix(in oklab, var(--primary) 25%, transparent) !important;
+}
+.dark .border-orange-200 {
+  border-color: color-mix(in oklab, var(--primary) 38%, transparent) !important;
+}
+.dark .border-orange-300 {
+  border-color: color-mix(in oklab, var(--primary) 55%, transparent) !important;
+}
+.dark .border-b.border-stone-100,
+.dark .border-b.border-gray-100 {
+  border-bottom-color: color-mix(in oklab, var(--foreground) 9%, transparent) !important;
+}
+.dark .md\:border-l.md\:border-stone-100 {
+  border-left-color: color-mix(in oklab, var(--foreground) 9%, transparent) !important;
+}
+
+/* ── Input fields ────────────────────────────────────────────── */
+.dark input,
+.dark textarea,
+.dark select {
+  background: color-mix(in oklab, var(--foreground) 6%, transparent) !important;
+  color: var(--foreground) !important;
+  border-color: color-mix(in oklab, var(--foreground) 14%, transparent) !important;
+  color-scheme: dark;
+}
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: color-mix(in oklab, var(--muted-foreground) 65%, transparent) !important;
+}
+.dark input:focus,
+.dark textarea:focus,
+.dark select:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 22%, transparent) !important;
+}
+.dark select option {
+  background: var(--card);
+  color: var(--foreground);
+}
+/* disabled / readonly inputs */
+.dark input:disabled,
+.dark input[readonly],
+.dark .bg-gray-100.cursor-not-allowed {
+  background: color-mix(in oklab, var(--foreground) 4%, transparent) !important;
+  opacity: 0.65 !important;
+}
+
+/* focus-within border helpers */
+.dark .focus\:border-orange-300:focus,
+.dark .focus-within\:border-orange-300:focus-within {
+  border-color: var(--primary) !important;
+}
+.dark .focus\:ring-orange-100:focus,
+.dark .focus\:ring-orange-50:focus {
+  --tw-ring-color: color-mix(in oklab, var(--primary) 22%, transparent) !important;
+}
+.dark .focus-within\:ring-orange-300 {
+  --tw-ring-color: color-mix(in oklab, var(--primary) 40%, transparent) !important;
+}
+
+/* ── Shadows ─────────────────────────────────────────────────── */
+.dark .shadow-sm,
+.dark .shadow {
+  box-shadow: 0 2px 12px -4px oklch(0 0 0 / 40%) !important;
+}
+.dark .shadow-md {
+  box-shadow: 0 4px 20px -6px oklch(0 0 0 / 50%) !important;
+}
+.dark .shadow-lg {
+  box-shadow: 0 8px 32px -8px oklch(0 0 0 / 55%) !important;
+}
+
+/* ── Dividers ─────────────────────────────────────────────────── */
+.dark .divide-gray-100 > * + *,
+.dark .divide-stone-100 > * + * {
+  border-color: color-mix(in oklab, var(--foreground) 9%, transparent) !important;
+}
+
+/* ── Progress bar accent ─────────────────────────────────────── */
+.dark .bg-gradient-to-r.from-orange-400,
+.dark .bg-gradient-to-r.from-orange-500 {
+  background: linear-gradient(to right, var(--primary), var(--primary-glow)) !important;
+}
+
+/* ── Spinner border ──────────────────────────────────────────── */
+.dark .border-t-orange-500 {
+  border-top-color: var(--primary) !important;
+}
+
+/* ── Highlighted / selected row states ───────────────────────── */
+.dark tr:hover td {
+  background: color-mix(in oklab, var(--primary) 8%, transparent) !important;
+}
+
+/* ── Tag / badge items with orange ───────────────────────────── */
+.dark .bg-white.border.border-orange-200 {
+  background: color-mix(in oklab, var(--primary) 14%, transparent) !important;
+  border-color: color-mix(in oklab, var(--primary) 38%, transparent) !important;
+}
+
+/* ── Ring/focus utilities ────────────────────────────────────── */
+.dark .ring-orange-50 {
+  --tw-ring-color: color-mix(in oklab, var(--primary) 18%, transparent) !important;
+}
+
+/* ── bg-\[#fafaf8\] and similar arbitrary page backgrounds ────── */
+/* (Tailwind v4 arbitrary: generate class names with escaped brackets) */
+.dark .bg-\[\#fafaf8\],
+.dark .bg-\[\#fafafa\],
+.dark .bg-\[\#f8f8f8\],
+.dark .bg-\[\#f5f5f5\] {
+  background: transparent !important;
+}

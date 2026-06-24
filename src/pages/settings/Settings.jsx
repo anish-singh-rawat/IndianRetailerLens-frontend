@@ -8,7 +8,6 @@ import {
     FiPlus, FiX, FiSave, FiLock, FiTrendingUp, FiShoppingBag
 } from "react-icons/fi";
 
-// ─── Static status list ───────────────────────────────────────────────────────
 const ALL_STATUSES = [
     "Lens Ordered",
     "Lens Received",
@@ -26,24 +25,53 @@ const ALL_STATUSES = [
     "Payment Delay",
 ];
 
-// ─── Section card wrapper ─────────────────────────────────────────────────────
+const cardStyle = {
+    background: "color-mix(in oklab, var(--card) 72%, transparent)",
+    border: "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)",
+    backdropFilter: "blur(20px)",
+    borderRadius: "1rem",
+    overflow: "hidden",
+};
+
+const headerStyle = (accent) => ({
+    display: "flex",
+    alignItems: "center",
+    gap: "0.75rem",
+    padding: "1rem 1.5rem",
+    borderBottom: "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)",
+    background: accent
+        ? "color-mix(in oklab, var(--primary) 12%, transparent)"
+        : "color-mix(in oklab, var(--foreground) 4%, transparent)",
+});
+
+const iconBoxStyle = (accent) => ({
+    width: "2rem",
+    height: "2rem",
+    borderRadius: "0.5rem",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: accent
+        ? "color-mix(in oklab, var(--primary) 22%, transparent)"
+        : "color-mix(in oklab, var(--foreground) 8%, transparent)",
+    border: "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)",
+});
+
 const Section = ({ icon: Icon, title, description, children, accent = false }) => (
-    <div className="bg-white rounded-2xl border border-stone-100 shadow-[0_2px_16px_-4px_rgba(0,0,0,0.08)] overflow-hidden">
-        {/* Card header strip */}
-        <div className={`flex items-center gap-3 px-6 py-4 border-b ${accent ? "border-orange-100 bg-orange-50/60" : "border-stone-100 bg-stone-50/60"}`}>
-            <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${accent ? "bg-orange-100" : "bg-stone-100"}`}>
-                <Icon size={15} className={accent ? "text-orange-500" : "text-stone-500"} />
+    <div style={cardStyle}>
+        <div style={headerStyle(accent)}>
+            <div style={iconBoxStyle(accent)}>
+                <Icon size={15} style={{ color: accent ? "var(--primary)" : "var(--muted-foreground)" }} />
             </div>
             <div>
-                <p className="text-[11px] font-bold text-stone-700 tracking-wide">{title}</p>
-                {description && <p className="text-[10px] text-stone-400 mt-0.5">{description}</p>}
+                <p style={{ fontSize: "11px", fontWeight: 700, color: "var(--foreground)", letterSpacing: "0.05em" }}>{title}</p>
+                {description && <p style={{ fontSize: "10px", color: "var(--muted-foreground)", marginTop: "2px" }}>{description}</p>}
             </div>
         </div>
-        <div className="p-6">{children}</div>
+        <div style={{ padding: "1.5rem" }}>{children}</div>
     </div>
 );
 
-// ─── Tag Input ────────────────────────────────────────────────────────────────
 function TagInput({ values, onChange, placeholder }) {
     const [input, setInput] = useState("");
     const [focused, setFocused] = useState(false);
@@ -57,29 +85,57 @@ function TagInput({ values, onChange, placeholder }) {
 
     return (
         <div>
-            {/* Tags area */}
-            <div className={`min-h-[44px] flex flex-wrap gap-1.5 p-2.5 rounded-xl border transition-all duration-200 mb-3
-                ${focused ? "border-orange-300 ring-2 ring-orange-50 bg-white" : "border-stone-200 bg-stone-50/50"}`}>
+            <div
+                style={{
+                    minHeight: "44px",
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: "0.375rem",
+                    padding: "0.625rem",
+                    borderRadius: "0.75rem",
+                    border: focused
+                        ? "1px solid var(--primary)"
+                        : "1px solid color-mix(in oklab, var(--foreground) 12%, transparent)",
+                    background: focused
+                        ? "color-mix(in oklab, var(--primary) 8%, transparent)"
+                        : "color-mix(in oklab, var(--foreground) 5%, transparent)",
+                    boxShadow: focused ? "0 0 0 3px color-mix(in oklab, var(--primary) 18%, transparent)" : "none",
+                    transition: "all 0.15s",
+                    marginBottom: "0.75rem",
+                }}
+            >
                 {values.length === 0 && !focused && (
-                    <span className="text-[11px] text-stone-300 italic self-center px-1">Nothing added yet…</span>
+                    <span style={{ fontSize: "11px", color: "var(--muted-foreground)", fontStyle: "italic", alignSelf: "center", padding: "0 4px" }}>
+                        Nothing added yet…
+                    </span>
                 )}
                 {values.map((v, i) => (
-                    <span key={i}
-                        className="inline-flex items-center gap-1.5 bg-white border border-orange-200 text-orange-700 text-[11px] font-semibold px-2.5 py-1 rounded-lg shadow-[0_1px_3px_rgba(0,0,0,0.06)] group"
+                    <span
+                        key={i}
+                        style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "0.375rem",
+                            background: "color-mix(in oklab, var(--primary) 18%, transparent)",
+                            border: "1px solid color-mix(in oklab, var(--primary) 38%, transparent)",
+                            color: "var(--primary-glow)",
+                            fontSize: "11px",
+                            fontWeight: 600,
+                            padding: "3px 10px",
+                            borderRadius: "0.5rem",
+                        }}
                     >
-                        <span className="w-1.5 h-1.5 rounded-full bg-orange-400 flex-shrink-0" />
+                        <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--primary)", flexShrink: 0 }} />
                         {v}
                         <button type="button" onClick={() => remove(i)}
-                            className="text-orange-300 hover:text-orange-600 transition ml-0.5">
+                            style={{ color: "color-mix(in oklab, var(--primary-glow) 65%, transparent)", background: "none", border: "none", cursor: "pointer", marginLeft: "2px", padding: 0 }}>
                             <FiX size={10} />
                         </button>
                     </span>
                 ))}
-
             </div>
 
-            {/* Input row */}
-            <div className="flex gap-2">
+            <div style={{ display: "flex", gap: "0.5rem" }}>
                 <input
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
@@ -87,10 +143,36 @@ function TagInput({ values, onChange, placeholder }) {
                     onFocus={() => setFocused(true)}
                     onBlur={() => setFocused(false)}
                     placeholder={placeholder}
-                    className="flex-1 px-3 py-2 text-[12px] border border-stone-200 rounded-xl outline-none focus:border-orange-300 focus:ring-2 focus:ring-orange-50 bg-white text-stone-700 transition placeholder:text-stone-300"
+                    style={{
+                        flex: 1,
+                        padding: "0.5rem 0.75rem",
+                        fontSize: "12px",
+                        borderRadius: "0.75rem",
+                        border: "1px solid color-mix(in oklab, var(--foreground) 14%, transparent)",
+                        background: "color-mix(in oklab, var(--foreground) 6%, transparent)",
+                        color: "var(--foreground)",
+                        outline: "none",
+                    }}
                 />
-                <button type="button" onClick={add}
-                    className="flex items-center gap-1.5 px-4 py-2 bg-orange-500 hover:bg-orange-600 active:scale-95 text-white text-[11px] font-bold rounded-xl transition-all shadow-[0_2px_8px_rgba(249,115,22,0.35)]">
+                <button
+                    type="button"
+                    onClick={add}
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.375rem",
+                        padding: "0.5rem 1rem",
+                        background: "linear-gradient(135deg, var(--primary) 0%, var(--primary-glow) 100%)",
+                        color: "var(--primary-foreground)",
+                        fontSize: "11px",
+                        fontWeight: 700,
+                        borderRadius: "0.75rem",
+                        border: "none",
+                        cursor: "pointer",
+                        boxShadow: "0 2px 10px color-mix(in oklab, var(--primary) 40%, transparent)",
+                        transition: "opacity 0.15s",
+                    }}
+                >
                     <FiPlus size={12} /> Add
                 </button>
             </div>
@@ -98,26 +180,48 @@ function TagInput({ values, onChange, placeholder }) {
     );
 }
 
-// ─── Status Checkboxes ────────────────────────────────────────────────────────
 function StatusGrid({ selected, onChange }) {
     const toggle = (s) =>
         selected.includes(s) ? onChange(selected.filter((x) => x !== s)) : onChange([...selected, s]);
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: "0.5rem" }}>
             {ALL_STATUSES.map((s, i) => {
                 const checked = selected.includes(s);
                 return (
-                    <label key={i}
-                        className={`relative flex items-center gap-3 px-3.5 py-3 rounded-xl border cursor-pointer transition-all duration-150 select-none group
-                            ${checked
-                                ? "bg-orange-50 border-orange-200 shadow-[0_1px_6px_rgba(249,115,22,0.12)]"
-                                : "bg-white border-stone-200 hover:border-stone-300 hover:bg-stone-50"
-                            }`}
+                    <label
+                        key={i}
+                        style={{
+                            position: "relative",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.75rem",
+                            padding: "0.75rem",
+                            borderRadius: "0.75rem",
+                            border: checked
+                                ? "1px solid color-mix(in oklab, var(--primary) 45%, transparent)"
+                                : "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)",
+                            background: checked
+                                ? "color-mix(in oklab, var(--primary) 14%, transparent)"
+                                : "color-mix(in oklab, var(--foreground) 4%, transparent)",
+                            cursor: "pointer",
+                            transition: "all 0.15s",
+                            userSelect: "none",
+                        }}
                     >
-                        {/* Custom checkbox */}
-                        <div className={`w-4 h-4 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all duration-150
-                            ${checked ? "bg-orange-500 border-orange-500 shadow-[0_2px_6px_rgba(249,115,22,0.4)]" : "border-stone-300 bg-white"}`}>
+                        <div style={{
+                            width: "16px",
+                            height: "16px",
+                            borderRadius: "4px",
+                            border: checked ? "2px solid var(--primary)" : "2px solid color-mix(in oklab, var(--foreground) 25%, transparent)",
+                            background: checked ? "var(--primary)" : "transparent",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexShrink: 0,
+                            boxShadow: checked ? "0 2px 6px color-mix(in oklab, var(--primary) 40%, transparent)" : "none",
+                            transition: "all 0.15s",
+                        }}>
                             {checked && (
                                 <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
                                     <path d="M1 3L3 5L7 1" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -125,10 +229,29 @@ function StatusGrid({ selected, onChange }) {
                             )}
                         </div>
                         <input type="checkbox" className="hidden" checked={checked} onChange={() => toggle(s)} />
-                        <span className={`text-[11px] font-medium leading-tight transition-colors uppercase tracking-wide ${checked ? "text-orange-800" : "text-stone-500 group-hover:text-stone-700"}`}>
+                        <span style={{
+                            fontSize: "11px",
+                            fontWeight: 500,
+                            lineHeight: 1.3,
+                            textTransform: "uppercase",
+                            letterSpacing: "0.04em",
+                            color: checked ? "var(--primary-glow)" : "var(--muted-foreground)",
+                            transition: "color 0.15s",
+                        }}>
                             {s}
                         </span>
-                        {checked && <span className="absolute right-3 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-orange-400" />}
+                        {checked && (
+                            <span style={{
+                                position: "absolute",
+                                right: "0.75rem",
+                                top: "50%",
+                                transform: "translateY(-50%)",
+                                width: "6px",
+                                height: "6px",
+                                borderRadius: "50%",
+                                background: "var(--primary)",
+                            }} />
+                        )}
                     </label>
                 );
             })}
@@ -136,17 +259,21 @@ function StatusGrid({ selected, onChange }) {
     );
 }
 
-// ─── Access Denied ────────────────────────────────────────────────────────────
 function AccessDenied() {
     return (
-        <div className="min-h-screen bg-stone-50 flex items-center justify-center">
-            <div className="bg-white rounded-2xl border border-stone-100 shadow-lg p-12 flex flex-col items-center gap-4 max-w-sm w-full text-center">
-                <div className="w-14 h-14 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center">
-                    <FiLock size={22} className="text-red-400" />
+        <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--background)" }}>
+            <div style={{ ...cardStyle, padding: "3rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem", maxWidth: "360px", width: "100%", textAlign: "center" }}>
+                <div style={{
+                    width: "56px", height: "56px", borderRadius: "1rem",
+                    background: "color-mix(in oklab, var(--destructive) 16%, transparent)",
+                    border: "1px solid color-mix(in oklab, var(--destructive) 32%, transparent)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                }}>
+                    <FiLock size={22} style={{ color: "var(--destructive)" }} />
                 </div>
                 <div>
-                    <h2 className="text-sm font-bold text-stone-700">Access Denied</h2>
-                    <p className="text-[11px] text-stone-400 mt-1.5 leading-relaxed">
+                    <h2 style={{ fontSize: "0.875rem", fontWeight: 700, color: "var(--foreground)" }}>Access Denied</h2>
+                    <p style={{ fontSize: "11px", color: "var(--muted-foreground)", marginTop: "0.375rem", lineHeight: 1.6 }}>
                         You don't have permission to view this page.<br />Contact your administrator.
                     </p>
                 </div>
@@ -155,25 +282,41 @@ function AccessDenied() {
     );
 }
 
-// ─── Save Button ──────────────────────────────────────────────────────────────
 const SaveBtn = ({ loading, onClick }) => (
-    <button type="button" onClick={onClick} disabled={loading}
-        className="flex items-center gap-2 px-5 py-2.5 bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white text-[11px] font-bold rounded-xl transition-all shadow-[0_4px_14px_rgba(249,115,22,0.4)] disabled:opacity-60 disabled:cursor-not-allowed disabled:shadow-none">
+    <button
+        type="button"
+        onClick={onClick}
+        disabled={loading}
+        style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            padding: "0.625rem 1.25rem",
+            background: "linear-gradient(135deg, var(--primary) 0%, var(--primary-glow) 100%)",
+            color: "var(--primary-foreground)",
+            fontSize: "11px",
+            fontWeight: 700,
+            borderRadius: "0.75rem",
+            border: "none",
+            cursor: loading ? "not-allowed" : "pointer",
+            opacity: loading ? 0.6 : 1,
+            boxShadow: "0 4px 16px color-mix(in oklab, var(--primary) 45%, transparent)",
+            transition: "all 0.15s",
+        }}
+    >
         {loading
-            ? <><div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" /> Saving…</>
+            ? <><div className="btn-spin" /> Saving…</>
             : <><FiSave size={13} /> Save Settings</>
         }
     </button>
 );
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function Settings() {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
 
     const [loading, setLoading] = useState(false);
     const [fetching, setFetching] = useState(true);
-    const [storeMeta, setStoreMeta] = useState({ storeName: "", storeNumber: "" });
     const [form, setForm] = useState({
         allCategories: [],
         paymentFor: [],
@@ -189,7 +332,6 @@ export default function Settings() {
                 dispatch(showLoader());
                 const res = await api.get("/settings");
                 const d = res.data.data;
-                setStoreMeta({ storeName: d.storeName, storeNumber: d.storeNumber });
                 setForm({
                     allCategories:   d.allCategories   || [],
                     paymentFor:      d.paymentFor      || [],
@@ -224,11 +366,9 @@ export default function Settings() {
     if (fetching) return null;
 
     return (
-        <div className="min-h-screen bg-[#fafaf8]">
-            <div className="space-y-5">
+        <div style={{ minHeight: "100vh" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
 
-
-                {/* ── Product Categories ── */}
                 <Section icon={FiTag} title="Product Categories" description="Used across inventory, billing & reports" accent>
                     <TagInput
                         values={form.allCategories}
@@ -237,12 +377,11 @@ export default function Settings() {
                     />
                 </Section>
 
-                {/* ── Payment Types ── */}
                 <Section icon={FiDollarSign} title="Payment Types" description="Modes accepted at your store">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
                         <div>
-                            <p className="text-[10px] font-bold text-stone-500 uppercase tracking-widest mb-3 flex items-center gap-1.5">
-                                <FiShoppingBag size={10} className="text-orange-400" /> Expense Modes
+                            <p style={{ fontSize: "10px", fontWeight: 700, color: "var(--muted-foreground)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem", display: "flex", alignItems: "center", gap: "0.375rem" }}>
+                                <FiShoppingBag size={10} style={{ color: "var(--primary)" }} /> Expense Modes
                             </p>
                             <TagInput
                                 values={form.paymentFor}
@@ -250,9 +389,9 @@ export default function Settings() {
                                 placeholder="e.g. Cash, UPI, Bank Transfer…"
                             />
                         </div>
-                        <div className="md:border-l md:border-stone-100 md:pl-6">
-                            <p className="text-[10px] font-bold text-stone-500 uppercase tracking-widest mb-3 flex items-center gap-1.5">
-                                <FiTrendingUp size={10} className="text-orange-400" /> Sales Modes
+                        <div style={{ borderLeft: "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)", paddingLeft: "1.5rem" }}>
+                            <p style={{ fontSize: "10px", fontWeight: 700, color: "var(--muted-foreground)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem", display: "flex", alignItems: "center", gap: "0.375rem" }}>
+                                <FiTrendingUp size={10} style={{ color: "var(--primary)" }} /> Sales Modes
                             </p>
                             <TagInput
                                 values={form.salesPaymentFor}
@@ -263,30 +402,41 @@ export default function Settings() {
                     </div>
                 </Section>
 
-                {/* ── Order Statuses ── */}
                 <Section icon={FiCheckSquare} title="Order Statuses" description="Control order statuses" accent>
-                    {/* Sub-header with counters */}
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-2">
-                            <div className="h-5 flex items-center gap-1 bg-orange-50 border border-orange-200 rounded-full px-3">
-                                <span className="text-[10px] font-bold text-orange-600">{form.status.length}</span>
-                                <span className="text-[10px] text-orange-400">/ {ALL_STATUSES.length} active</span>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                            <div style={{
+                                height: "20px",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "0.25rem",
+                                background: "color-mix(in oklab, var(--primary) 14%, transparent)",
+                                border: "1px solid color-mix(in oklab, var(--primary) 30%, transparent)",
+                                borderRadius: "99px",
+                                padding: "0 0.75rem",
+                            }}>
+                                <span style={{ fontSize: "10px", fontWeight: 700, color: "var(--primary)" }}>{form.status.length}</span>
+                                <span style={{ fontSize: "10px", color: "var(--muted-foreground)" }}>/ {ALL_STATUSES.length} active</span>
                             </div>
-                            {/* Mini progress bar */}
-                            <div className="w-24 h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                            <div style={{ width: "96px", height: "6px", background: "color-mix(in oklab, var(--foreground) 10%, transparent)", borderRadius: "99px", overflow: "hidden" }}>
                                 <div
-                                    className="h-full bg-gradient-to-r from-orange-400 to-orange-500 rounded-full transition-all duration-300"
-                                    style={{ width: `${(form.status.length / ALL_STATUSES.length) * 100}%` }}
+                                    style={{
+                                        height: "100%",
+                                        background: "linear-gradient(to right, var(--primary), var(--primary-glow))",
+                                        borderRadius: "99px",
+                                        width: `${(form.status.length / ALL_STATUSES.length) * 100}%`,
+                                        transition: "width 0.3s",
+                                    }}
                                 />
                             </div>
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div style={{ display: "flex", gap: "0.75rem" }}>
                             <button type="button" onClick={() => update("status")(ALL_STATUSES)}
-                                className="text-[10px] font-semibold text-orange-500 hover:text-orange-700 transition underline underline-offset-2">
+                                style={{ fontSize: "10px", fontWeight: 600, color: "var(--primary)", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", textUnderlineOffset: "2px" }}>
                                 Select All
                             </button>
                             <button type="button" onClick={() => update("status")([])}
-                                className="text-[10px] font-semibold text-stone-400 hover:text-stone-600 transition underline underline-offset-2">
+                                style={{ fontSize: "10px", fontWeight: 600, color: "var(--muted-foreground)", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", textUnderlineOffset: "2px" }}>
                                 Clear
                             </button>
                         </div>
@@ -295,9 +445,8 @@ export default function Settings() {
                     <StatusGrid selected={form.status} onChange={update("status")} />
                 </Section>
 
-                {/* ── Footer ── */}
-                <div className="flex items-center justify-between pb-6">
-                    <p className="text-[10px] text-stone-400">Changes apply immediately after saving.</p>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingBottom: "1.5rem" }}>
+                    <p style={{ fontSize: "10px", color: "var(--muted-foreground)" }}>Changes apply immediately after saving.</p>
                     <SaveBtn loading={loading} onClick={handleSave} />
                 </div>
 
