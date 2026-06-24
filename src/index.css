@@ -1,87 +1,300 @@
 @import "tailwindcss";
+@import "@fontsource/space-grotesk/400.css";
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/600.css";
+@import "@fontsource/space-grotesk/700.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
 
 @layer base {
   :root {
-    --background: 220 20% 97%;
-    --foreground: 220 25% 10%;
+    --background:           oklch(0.985 0.008 220);
+    --foreground:           oklch(0.16  0.04  240);
+    --card:                 oklch(1     0     0);
+    --card-foreground:      oklch(0.16  0.04  240);
+    --popover:              oklch(1     0     0);
+    --popover-foreground:   oklch(0.16  0.04  240);
+    --primary:              oklch(0.52  0.10  185);
+    --primary-foreground:   oklch(0.99  0     0);
+    --primary-glow:         oklch(0.86  0.11  210);
+    --secondary:            oklch(0.96  0.015 210);
+    --secondary-foreground: oklch(0.2   0.05  220);
+    --muted:                oklch(0.96  0.012 220);
+    --muted-foreground:     oklch(0.5   0.03  220);
+    --accent:               oklch(0.93  0.04  235);
+    --accent-foreground:    oklch(0.22  0.08  235);
+    --destructive:          oklch(0.6   0.22   25);
+    --destructive-foreground: oklch(0.99 0    0);
+    --success:              oklch(0.72  0.16  165);
+    --warning:              oklch(0.78  0.16   80);
+    --border:               oklch(0.9   0.015 220);
+    --input:                oklch(0.92  0.015 220);
+    --ring:                 oklch(0.52  0.10  185);
+    --radius:               0.75rem;
+  }
 
-    --primary: 24 95% 53%;
-    --primary-foreground: 0 0% 100%;
+  .dark {
+    --background:           oklch(0.16  0.035 240);
+    --foreground:           oklch(0.98  0.008 210);
+    --card:                 oklch(0.21  0.04  240);
+    --card-foreground:      oklch(0.98  0.008 210);
+    --popover:              oklch(0.19  0.04  240);
+    --popover-foreground:   oklch(0.98  0.008 210);
+    --primary:              oklch(0.68  0.13  205);
+    --primary-foreground:   oklch(0.12  0.04  240);
+    --primary-glow:         oklch(0.87  0.12  210);
+    --secondary:            oklch(0.27  0.05  230);
+    --secondary-foreground: oklch(0.98  0.008 210);
+    --muted:                oklch(0.24  0.04  235);
+    --muted-foreground:     oklch(0.74  0.025 215);
+    --accent:               oklch(0.34  0.08  210);
+    --accent-foreground:    oklch(0.98  0.008 210);
+    --destructive:          oklch(0.65  0.22   25);
+    --destructive-foreground: oklch(0.99 0    0);
+    --success:              oklch(0.74  0.16  165);
+    --warning:              oklch(0.8   0.16   80);
+    --border:               oklch(1     0     0 / 10%);
+    --input:                oklch(1     0     0 / 12%);
+    --ring:                 oklch(0.68  0.13  205);
+  }
 
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
+  *, *::before, *::after {
+    box-sizing: border-box;
+    border-color: var(--border);
+  }
 
-    --border: 220 15% 90%;
-    --ring: 24 95% 53%;
-
-    /* Sidebar Colors */
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 220 15% 40%;
-    --sidebar-border: 220 15% 92%;
-
-    --sidebar-hover: 24 40% 96%;
-    --sidebar-group-icon: 24 80% 55%;
-    --sidebar-muted: 220 10% 55%;
-
-    --sidebar-active-bg: 24 95% 94%;
-    --sidebar-active-text: 24 80% 40%;
-    --sidebar-active-border: 24 95% 53%;
+  html {
+    color-scheme: dark;
   }
 
   body {
-    @apply bg-[hsl(var(--background))] text-[hsl(var(--foreground))];
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.02em;
   }
 }
 
-/* -----------------------------
-   Tailwind Utility Mapping
---------------------------------*/
-
-.bg-sidebar {
-  background-color: hsl(var(--sidebar-background));
+/* ─── Glass morphism ─────────────────────────────────── */
+@utility glass {
+  background: color-mix(in oklab, var(--card) 55%, transparent);
+  backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
 }
 
-.text-sidebar-foreground {
-  color: hsl(var(--sidebar-foreground));
+@utility glass-strong {
+  background: color-mix(in oklab, var(--card) 75%, transparent);
+  backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid color-mix(in oklab, var(--foreground) 14%, transparent);
 }
 
-.border-sidebar-border {
-  border-color: hsl(var(--sidebar-border));
+/* ─── Text gradients ─────────────────────────────────── */
+@utility text-gradient {
+  background: linear-gradient(135deg, var(--foreground) 0%, color-mix(in oklab, var(--primary-glow) 80%, var(--foreground)) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.bg-sidebar-hover {
-  background-color: hsl(var(--sidebar-hover));
+@utility text-gradient-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-glow) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.text-sidebar-group-icon {
-  color: hsl(var(--sidebar-group-icon));
+/* ─── Background utilities ───────────────────────────── */
+@utility bg-gradient-primary {
+  background-image: linear-gradient(135deg, var(--primary) 0%, var(--primary-glow) 100%);
 }
 
-.text-sidebar-muted {
-  color: hsl(var(--sidebar-muted));
+@utility bg-gradient-radial {
+  background-image: radial-gradient(ellipse at top, color-mix(in oklab, var(--primary) 35%, transparent), transparent 60%);
 }
 
-.bg-sidebar-active-bg {
-  background-color: hsl(var(--sidebar-active-bg));
+/* ─── Shadows ────────────────────────────────────────── */
+@utility shadow-glow {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--primary) 30%, transparent),
+    0 20px 60px -20px color-mix(in oklab, var(--primary) 50%, transparent);
 }
 
-.text-sidebar-active-text {
-  color: hsl(var(--sidebar-active-text));
+@utility shadow-elegant {
+  box-shadow: 0 30px 80px -30px color-mix(in oklab, var(--primary) 40%, transparent);
 }
 
-.border-sidebar-active-border {
-  border-color: hsl(var(--sidebar-active-border));
+/* ─── Background textures ────────────────────────────── */
+@utility grid-bg {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
 }
 
-/* -----------------------------
-   Your Existing Classes
---------------------------------*/
+@utility dot-bg {
+  background-image: radial-gradient(color-mix(in oklab, var(--foreground) 14%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
 
+/* ─── Layout spacing ─────────────────────────────────── */
+@utility container-px {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+
+  @media (min-width: 768px) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  @media (min-width: 1280px) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@utility section-y {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+
+  @media (min-width: 768px) {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+/* ─── Animations ─────────────────────────────────────── */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50%       { transform: translateY(-30px) translateX(15px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 0.7; transform: scale(1.08); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@keyframes draw-line {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+@keyframes mFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-11px); }
+}
+
+@keyframes bPop {
+  from { opacity: 0; transform: scale(0.55) translateY(16px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-5px); }
+  40%       { transform: translateX(5px); }
+  60%       { transform: translateX(-3px); }
+  80%       { transform: translateX(3px); }
+}
+
+.animate-float-slow  { animation: float-slow 12s ease-in-out infinite; }
+.animate-pulse-glow  { animation: pulse-glow 6s ease-in-out infinite; }
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--primary-glow) 30%, transparent), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+.animate-draw-line   { animation: draw-line 1s ease forwards; }
+.card-enter          { animation: fadeUp 0.55s cubic-bezier(0.16,1,0.3,1) both; }
+.mascot-float        { animation: mFloat 3.5s ease-in-out infinite; }
+.bubble-pop          { animation: bPop 0.65s cubic-bezier(0.34,1.56,0.64,1) 0.45s both; }
+.submenu-enter       { animation: slideDown 0.18s ease forwards; }
+.err-shake           { animation: shake 0.35s ease; }
+.field-1             { animation: fadeUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.15s both; }
+.field-2             { animation: fadeUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.22s both; }
+.field-3             { animation: fadeUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.29s both; }
+
+/* ─── Scrollbar ──────────────────────────────────────── */
+.sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--primary) 30%, transparent) transparent;
+}
+.sidebar-scroll::-webkit-scrollbar { width: 4px; }
+.sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--primary) 30%, transparent);
+  border-radius: 99px;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in oklab, var(--primary) 55%, transparent);
+}
+
+/* ─── Login input focus ──────────────────────────────── */
+.login-input:focus {
+  outline: none;
+  box-shadow:
+    0 0 0 2.5px var(--primary),
+    0 0 0 6px color-mix(in oklab, var(--primary) 20%, transparent) !important;
+}
+.login-input::placeholder {
+  color: var(--muted-foreground);
+}
+
+/* ─── Button spinner ─────────────────────────────────── */
+.btn-spin {
+  width: 15px;
+  height: 15px;
+  border: 2.5px solid oklch(1 0 0 / 30%);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ─── Input utility ──────────────────────────────────── */
 .input {
-  @apply w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500;
+  width: 100%;
+  background: var(--input);
+  border: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
+  border-radius: calc(var(--radius) - 2px);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 20%, transparent);
 }
 
 .error-text {
-  @apply text-xs text-red-500 mt-1;
+  font-size: 0.75rem;
+  color: var(--destructive);
+  margin-top: 0.25rem;
 }
-

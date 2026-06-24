@@ -1,0 +1,295 @@
+
+Change this  application UI and design using the exact same design system, color palette, typography, animations, and component architecture described below. Do not change anything — replicate it exactly.
+
+Stack
+React 19 + TypeScript
+Tailwind CSS v4 (with @tailwindcss/vite)
+TanStack Router for routing
+Framer Motion for animations
+Radix UI primitives for accessible components
+Lucide React for icons
+tw-animate-css for Tailwind animation utilities
+Fonts via @fontsource: Space Grotesk (display/headings) and Inter (body)
+Fonts
+
+--font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+--font-sans:    "Inter",          ui-sans-serif, system-ui, sans-serif;
+All h1–h6 use font-display with letter-spacing: -0.02em. Body text uses font-sans with -webkit-font-smoothing: antialiased.
+
+Color Palette — CSS Variables (OKLCH)
+Light Mode (:root)
+
+css
+
+--background:          oklch(0.985 0.008 220);   /* near-white with cool blue tint */
+--foreground:          oklch(0.16  0.04  240);   /* deep navy text */
+--card:                oklch(1     0     0);      /* pure white */
+--card-foreground:     oklch(0.16  0.04  240);
+--popover:             oklch(1     0     0);
+--popover-foreground:  oklch(0.16  0.04  240);
+--primary:             oklch(0.52  0.10  185);   /* Deep Teal  #0F766E */
+--primary-foreground:  oklch(0.99  0     0);
+--primary-glow:        oklch(0.86  0.11  210);   /* Lens Cyan  #67E8F9 */
+--secondary:           oklch(0.96  0.015 210);
+--secondary-foreground:oklch(0.2   0.05  220);
+--muted:               oklch(0.96  0.012 220);
+--muted-foreground:    oklch(0.5   0.03  220);
+--accent:              oklch(0.93  0.04  235);   /* Soft Iris Blue */
+--accent-foreground:   oklch(0.22  0.08  235);
+--destructive:         oklch(0.6   0.22   25);
+--destructive-foreground: oklch(0.99 0   0);
+--success:             oklch(0.72  0.16  165);   /* Emerald Green #10B981 */
+--warning:             oklch(0.78  0.16   80);
+--border:              oklch(0.9   0.015 220);
+--input:               oklch(0.92  0.015 220);
+--ring:                oklch(0.52  0.10  185);
+--radius:              0.75rem;
+Dark Mode (.dark)
+
+css
+
+--background:          oklch(0.16  0.035 240);   /* Rich Midnight Navy #041226 */
+--foreground:          oklch(0.98  0.008 210);
+--card:                oklch(0.21  0.04  240);   /* Deep Charcoal Blue #0A1628 */
+--card-foreground:     oklch(0.98  0.008 210);
+--popover:             oklch(0.19  0.04  240);
+--popover-foreground:  oklch(0.98  0.008 210);
+--primary:             oklch(0.68  0.13  205);   /* Ocean Blue / Deep Teal blend */
+--primary-foreground:  oklch(0.12  0.04  240);
+--primary-glow:        oklch(0.87  0.12  210);   /* Lens Cyan #67E8F9 */
+--secondary:           oklch(0.27  0.05  230);
+--secondary-foreground:oklch(0.98  0.008 210);
+--muted:               oklch(0.24  0.04  235);
+--muted-foreground:    oklch(0.74  0.025 215);
+--accent:              oklch(0.34  0.08  210);   /* Aqua Cyan #06B6D4 */
+--accent-foreground:   oklch(0.98  0.008 210);
+--destructive:         oklch(0.65  0.22   25);
+--destructive-foreground: oklch(0.99 0   0);
+--success:             oklch(0.74  0.16  165);
+--warning:             oklch(0.8   0.16   80);
+--border:              oklch(1     0     0 / 10%);
+--input:               oklch(1     0     0 / 12%);
+--ring:                oklch(0.68  0.13  205);
+Utility Classes (Tailwind @utility)
+Glass morphism
+
+css
+
+/* glass */
+background: color-mix(in oklab, var(--card) 55%, transparent);
+backdrop-filter: blur(20px) saturate(160%);
+border: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
+
+/* glass-strong */
+background: color-mix(in oklab, var(--card) 75%, transparent);
+backdrop-filter: blur(28px) saturate(180%);
+border: 1px solid color-mix(in oklab, var(--foreground) 14%, transparent);
+Text gradients
+
+css
+
+/* text-gradient  (heading shimmer — foreground → cyan) */
+background: linear-gradient(135deg, var(--foreground) 0%, color-mix(in oklab, var(--primary-glow) 80%, var(--foreground)) 100%);
+-webkit-background-clip: text; background-clip: text; color: transparent;
+
+/* text-gradient-primary  (teal → cyan) */
+background: linear-gradient(135deg, var(--primary) 0%, var(--primary-glow) 100%);
+-webkit-background-clip: text; background-clip: text; color: transparent;
+Background utilities
+
+css
+
+/* bg-gradient-primary */
+background-image: linear-gradient(135deg, var(--primary) 0%, var(--primary-glow) 100%);
+
+/* bg-gradient-radial */
+background-image: radial-gradient(ellipse at top, color-mix(in oklab, var(--primary) 35%, transparent), transparent 60%);
+Shadows
+
+css
+
+/* shadow-glow */
+box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 30%, transparent),
+            0 20px 60px -20px color-mix(in oklab, var(--primary) 50%, transparent);
+
+/* shadow-elegant */
+box-shadow: 0 30px 80px -30px color-mix(in oklab, var(--primary) 40%, transparent);
+Background textures
+
+css
+
+/* grid-bg  — subtle grid lines */
+background-image:
+  linear-gradient(to right, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px),
+  linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px);
+background-size: 56px 56px;
+mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+
+/* dot-bg  — subtle dot grid */
+background-image: radial-gradient(color-mix(in oklab, var(--foreground) 14%, transparent) 1px, transparent 1px);
+background-size: 22px 22px;
+Layout spacing
+
+css
+
+/* container-px — horizontal padding */
+padding-left: 1.25rem; padding-right: 1.25rem;          /* mobile */
+@media (min-width: 768px)  { padding: 0 2rem; }          /* tablet */
+@media (min-width: 1280px) { padding: 0 3rem; }          /* desktop */
+
+/* section-y — vertical section padding */
+padding-top: 5rem; padding-bottom: 5rem;                 /* mobile */
+@media (min-width: 768px) { padding-top: 7rem; padding-bottom: 7rem; }
+Animations & Keyframes
+css
+
+/* Slow floating blob */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50%       { transform: translateY(-30px) translateX(15px); }
+}
+.animate-float-slow { animation: float-slow 12s ease-in-out infinite; }
+
+/* Pulsing glow orb */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 0.7; transform: scale(1.08); }
+}
+.animate-pulse-glow { animation: pulse-glow 6s ease-in-out infinite; }
+
+/* Horizontal shimmer sweep */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--primary-glow) 30%, transparent), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+/* SVG path draw-in */
+@keyframes draw-line { to { stroke-dashoffset: 0; } }
+
+/* Radix / tw-animate-css: also use accordion-down, accordion-up from tw-animate-css */
+Also use animate-ping (Tailwind built-in) for pulsing dot indicators on status pills and eyebrow badges.
+
+Framer Motion Patterns
+Use these exact motion patterns throughout:
+
+tsx
+
+// Fade-up on scroll (sections, cards)
+initial={{ opacity: 0, y: 24 }}
+whileInView={{ opacity: 1, y: 0 }}
+viewport={{ once: true, margin: "-80px" }}
+transition={{ duration: 0.5, ease: "easeOut" }}
+
+// Staggered cards (add delay per index)
+transition={{ duration: 0.5, delay: index * 0.05 }}
+
+// Hero entrance (no scroll trigger)
+initial={{ opacity: 0, y: 20 }}
+animate={{ opacity: 1, y: 0 }}
+transition={{ duration: 0.6 }}
+
+// Slide-in from left (timeline items)
+initial={{ opacity: 0, x: -20 }}
+whileInView={{ opacity: 1, x: 0 }}
+viewport={{ once: true }}
+transition={{ duration: 0.5, delay: index * 0.08 }}
+
+// Section header fade
+initial={{ opacity: 0, y: 18 }}
+whileInView={{ opacity: 1, y: 0 }}
+viewport={{ once: true, margin: "-80px" }}
+transition={{ duration: 0.55, ease: "easeOut" }}
+Core Layout Components
+Section — the main content wrapper. Every section uses this:
+
+tsx
+
+<section className="section-y relative">
+  <div className="container-px mx-auto max-w-7xl">
+    {children}
+  </div>
+</section>
+PageHero — full-width hero with backdrop:
+
+tsx
+
+<section className="relative pt-12 pb-20 md:pt-16 md:pb-28 overflow-hidden">
+  {/* BackdropOrbs + GridBackdrop behind content */}
+  <div className="container-px mx-auto max-w-7xl text-center">
+    <div className="max-w-4xl mx-auto">
+      {/* Eyebrow pill → h1 with text-gradient → description → CTA buttons */}
+    </div>
+  </div>
+</section>
+Eyebrow pill (section labels):
+
+tsx
+
+<span className="inline-flex items-center gap-2 rounded-full border bg-card/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] border-primary-glow/40 text-primary-glow">
+  <span className="relative inline-flex h-1.5 w-1.5">
+    <span className="absolute inline-flex h-full w-full rounded-full bg-current opacity-60 animate-ping" />
+    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
+  </span>
+  Label text
+</span>
+BackdropOrbs (hero background blobs):
+
+tsx
+
+<div className="pointer-events-none absolute inset-0 overflow-hidden -z-10">
+  <div className="absolute -top-32 right-[-10%] h-[420px] w-[420px] rounded-full bg-primary-glow/18 blur-[140px]" />
+  <div className="absolute bottom-[-20%] left-[-10%] h-[360px] w-[360px] rounded-full bg-primary/15 blur-[140px]" />
+</div>
+GridBackdrop:
+
+tsx
+
+<div className="pointer-events-none absolute inset-0 grid-bg -z-10 opacity-60" />
+Border Radius Scale
+
+sm:   calc(0.75rem - 4px)   →  0.5rem
+md:   calc(0.75rem - 2px)   →  0.625rem
+lg:   0.75rem
+xl:   calc(0.75rem + 4px)   →  1rem
+2xl:  calc(0.75rem + 8px)   →  1.25rem
+3xl:  calc(0.75rem + 12px)  →  1.5rem
+Use rounded-2xl for cards, rounded-xl for buttons/inputs, rounded-full for pills/avatars.
+
+Button Style
+tsx
+
+/* Primary */
+className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition-colors hover:bg-primary-glow hover:text-background"
+
+/* Ghost / outlined */
+className="inline-flex items-center gap-2 rounded-lg border border-foreground/14 px-5 py-3 text-sm font-semibold text-foreground/85 hover:border-primary-glow/40 hover:text-foreground transition-colors"
+Card Style
+tsx
+
+className="rounded-2xl glass p-6 hover:shadow-elegant transition-shadow"
+/* OR for stronger glass */
+className="rounded-2xl glass-strong p-6"
+Typography Scale
+
+Hero h1:     text-4xl sm:text-5xl md:text-6xl   font-bold tracking-tight  font-display  text-gradient
+Section h2:  text-3xl sm:text-4xl md:text-[44px] font-bold leading-[1.08] font-display
+Card h3:     text-lg   font-semibold              font-display
+Body:        text-base sm:text-lg  text-muted-foreground leading-relaxed
+Small:       text-sm   text-muted-foreground
+Eyebrow:     text-[10px] uppercase tracking-[0.18em] font-semibold
+Key Design Principles
+Dark-first — dark mode is the primary/default feel (midnight navy background, glowing teal/cyan accents).
+Glass morphism — all cards use glass or glass-strong, never flat opaque backgrounds.
+Glow accents — teal (--primary) and cyan (--primary-glow) are the only accent colors. No red, orange, or purple accents.
+Backdrop blur — heavily used (20–28px) to create depth between layers.
+Subtle textures — grid-bg (56px grid) and dot-bg used as section backgrounds at low opacity.
+Scroll-triggered animations — every section fades up on scroll with Framer Motion whileInView. Nothing is static.
+Staggered reveals — grids of cards animate with a small delay: index * 0.05 offset.
+Glow shadows — interactive elements use shadow-glow (teal halo), hover states use shadow-elegant.
+Max content width — max-w-7xl (1280px) for all page content, max-w-4xl for hero text, max-w-3xl for section headers.
+No borders without purpose — borders use color-mix(in oklab, var(--foreground) 10%, transparent) so they're always subtle.

@@ -10,11 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/space-grotesk": "^5.2.10",
     "@reduxjs/toolkit": "^2.11.2",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-table": "^8.21.3",
     "axios": "^1.13.2",
     "browser-image-compression": "^2.0.2",
+    "framer-motion": "^12.41.0",
     "jsbarcode": "^3.12.3",
     "lucide-react": "^0.562.0",
     "qrcode": "^1.5.4",
