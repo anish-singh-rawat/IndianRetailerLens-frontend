@@ -1,0 +1,26 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "eAwjr957Pqqbeh7PxWH7d"
+uri = "file://public/ilw-logo-icon.png"
+type = "image"
+title = "indian lens wholesale logo icon"
+
+[[generated]]
+id = "Moz_cGSA3mq8-UmLDApBQ"
+uri = "file://public/ilw-hero.png"
+type = "image"
+title = "optical wholesale hero illustration"
+
+[[generated]]
+id = "sPcHrcPe8AjpmC3S8luw8"
+uri = "file://public/ilw-ai-avatar.png"
+type = "image"
+title = "AI avatar lens icon"
+
+[[generated]]
+id = "YDPZR3FO3r-nPNpSO71Sy"
+uri = "file://public/ilw-favicon.png"
+type = "image"
+title = "lens favicon icon"

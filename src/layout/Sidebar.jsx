@@ -12,7 +12,7 @@ import { logout } from "../features/auth/authSlice";
 import { clearEmployees } from "../features/employees/employeeSlice";
 import { clearSettings } from "../features/settings/settingSlice";
 
-const LOGO_IMG = "https://digibysr.com/wp-content/uploads/2025/01/DigiOptics.png";
+const LOGO_IMG = "/ilw-logo-icon.png";
 
 export default function AppSidebar({ sidebarOpen, userRole = "ADMIN" }) {
   const [openGroups, setOpenGroups] = useState({});

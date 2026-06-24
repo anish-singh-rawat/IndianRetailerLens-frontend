@@ -5,17 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser, setStore } from "../features/auth/authSlice";
 import { Eye, EyeOff, AlertCircle } from "lucide-react";
 
-const LOGO_IMG   = "https://digibysr.com/wp-content/uploads/2025/10/DigiOptics-By-DigiBySR-Logo-Option-2-scaled.png";
-const LOGO_IMG_2 = "https://digibysr.com/wp-content/uploads/2025/01/DigiOptics.png";
-const MASCOT_GIF = "https://digibysr.com/wp-content/uploads/2025/08/DigiOptics-Character_low.gif";
-const BUBBLE_IMG = "https://digibysr.com/wp-content/uploads/2025/10/f49bca6c000c4089ef68b87827683c9b3a11ac68.png";
+const LOGO_IMG = "/ilw-logo-icon.png";
+const HERO_IMG = "/ilw-hero.png";
 
 function getGreeting() {
   const h = new Date().getHours();
-  if (h >= 5  && h < 12) return "Good Morning!\nHope you have a wonderful day!";
-  if (h >= 12 && h < 17) return "Good Afternoon!\nKeep up the great work!";
-  if (h >= 17 && h < 21) return "Good Evening!\nHope you had a wonderful day!";
-  return "Working Late?\nWe are here with you!";
+  if (h >= 5  && h < 12) return { line1: "Good Morning!", line2: "Hope you have a wonderful day!" };
+  if (h >= 12 && h < 17) return { line1: "Good Afternoon!", line2: "Keep up the great work!" };
+  if (h >= 17 && h < 21) return { line1: "Good Evening!", line2: "Hope you had a wonderful day!" };
+  return { line1: "Working Late?", line2: "We are here with you!" };
 }
 
 export default function Login() {
@@ -76,74 +74,95 @@ export default function Login() {
       <div className="pointer-events-none absolute inset-0 grid-bg -z-10 opacity-40" />
 
       {/* ── Fixed top-right logo ── */}
-      <div className="fixed top-5 right-7 z-50">
-        <img src={LOGO_IMG_2} alt="Indian Lens Wholesale" className="h-8 w-auto object-contain opacity-80" />
+      <div className="fixed top-5 right-7 z-50 flex items-center gap-2">
+        <img src={LOGO_IMG} alt="Indian Lens Wholesale" className="h-8 w-8 object-contain" />
+        <span
+          className="hidden sm:block text-xs font-semibold tracking-wide"
+          style={{ fontFamily: "'Space Grotesk', sans-serif", color: "var(--muted-foreground)" }}
+        >
+          Indian Lens Wholesale
+        </span>
       </div>
 
       {/* ── Main card ── */}
-      <div className="card-enter relative z-10 w-full max-w-[860px] flex flex-col items-center">
+      <div className="card-enter relative z-10 w-full max-w-[880px] flex flex-col items-center">
 
         <div
-          className="w-full rounded-3xl flex items-stretch overflow-visible shadow-elegant"
+          className="w-full rounded-3xl flex items-stretch overflow-hidden"
           style={{
             background: "color-mix(in oklab, var(--card) 65%, transparent)",
             backdropFilter: "blur(28px) saturate(180%)",
             border: "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)",
             boxShadow: "0 0 0 1px color-mix(in oklab, var(--primary) 20%, transparent), 0 30px 80px -30px color-mix(in oklab, var(--primary) 40%, transparent)",
-            minHeight: 360,
+            minHeight: 380,
           }}
         >
-          {/* ── LEFT: mascot panel ── */}
+          {/* ── LEFT: hero illustration panel ── */}
           <div
-            className="hidden sm:flex flex-1 flex-col items-center justify-end px-8 py-0 relative overflow-visible"
+            className="hidden sm:flex flex-1 flex-col items-center justify-between px-6 py-8 relative overflow-hidden"
             style={{
-              background: "linear-gradient(160deg, color-mix(in oklab, var(--primary) 12%, transparent) 0%, color-mix(in oklab, var(--primary-glow) 8%, transparent) 100%)",
-              borderRadius: "24px 0 0 24px",
+              background: "linear-gradient(160deg, color-mix(in oklab, var(--primary) 18%, transparent) 0%, color-mix(in oklab, var(--primary-glow) 10%, transparent) 100%)",
             }}
           >
             {/* decorative rings */}
             <div
-              className="absolute top-6 left-6 w-24 h-24 rounded-full"
-              style={{ border: "2px solid color-mix(in oklab, var(--primary) 20%, transparent)" }}
+              className="absolute -top-12 -right-12 w-40 h-40 rounded-full"
+              style={{ border: "1px solid color-mix(in oklab, var(--primary-glow) 20%, transparent)" }}
             />
             <div
-              className="absolute top-10 left-10 w-12 h-12 rounded-full"
-              style={{ border: "1px solid color-mix(in oklab, var(--primary-glow) 15%, transparent)" }}
-            />
-            <div
-              className="absolute bottom-8 right-4 w-16 h-16 rounded-full"
-              style={{ border: "1px solid color-mix(in oklab, var(--primary) 15%, transparent)" }}
+              className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full"
+              style={{ border: "1px solid color-mix(in oklab, var(--primary) 20%, transparent)" }}
             />
 
-            {/* speech bubble */}
-            <div className="bubble-pop relative mb-[-8px] z-10">
-              <img src={BUBBLE_IMG} alt="" className="w-[270px] drop-shadow-md" />
-              <div className="absolute inset-0 flex items-center justify-center pb-6 px-4 pointer-events-none text-center">
-                <p
-                  className="text-[12px] font-black leading-[1.5] whitespace-pre-line"
-                  style={{ color: "var(--foreground)", fontFamily: "'Space Grotesk', sans-serif" }}
-                >
-                  {greeting}
-                </p>
-              </div>
+            {/* greeting badge */}
+            <div
+              className="w-full rounded-2xl px-4 py-3 flex flex-col gap-0.5"
+              style={{
+                background: "color-mix(in oklab, var(--card) 35%, transparent)",
+                border: "1px solid color-mix(in oklab, var(--primary-glow) 25%, transparent)",
+              }}
+            >
+              <p
+                className="text-sm font-bold leading-tight"
+                style={{ fontFamily: "'Space Grotesk', sans-serif", color: "var(--primary-glow)" }}
+              >
+                {greeting.line1}
+              </p>
+              <p className="text-xs" style={{ color: "var(--muted-foreground)" }}>
+                {greeting.line2}
+              </p>
             </div>
 
-            {/* mascot */}
-            <div className="mascot-float relative z-10">
-              <img src={MASCOT_GIF} alt="Indian Lens Wholesale mascot" className="w-[220px] drop-shadow-xl" />
+            {/* hero illustration */}
+            <div className="flex-1 flex items-center justify-center w-full px-2 py-4">
+              <img
+                src={HERO_IMG}
+                alt="Indian Lens Wholesale optical products"
+                className="w-full max-w-[280px] object-contain drop-shadow-2xl mascot-float"
+              />
+            </div>
+
+            {/* brand tagline */}
+            <div className="text-center">
+              <p
+                className="text-[10px] uppercase tracking-[0.18em] font-semibold"
+                style={{ color: "color-mix(in oklab, var(--primary-glow) 70%, transparent)" }}
+              >
+                Premium Optical Wholesale
+              </p>
             </div>
           </div>
 
           {/* vertical separator */}
           <div
-            className="hidden sm:block w-px flex-shrink-0 my-8"
+            className="hidden sm:block w-px flex-shrink-0 my-6"
             style={{ background: "linear-gradient(to bottom, transparent, color-mix(in oklab, var(--foreground) 12%, transparent) 30%, color-mix(in oklab, var(--foreground) 12%, transparent) 70%, transparent)" }}
           />
 
           {/* ── RIGHT: form panel ── */}
-          <div className="flex-1 flex flex-col items-center justify-center px-10 py-10 min-w-0">
+          <div className="flex-1 flex flex-col items-center justify-center px-8 py-10 min-w-0">
 
-            {/* mobile greeting */}
+            {/* mobile greeting strip */}
             <div
               className="sm:hidden flex items-center gap-3 w-full rounded-2xl px-4 py-3 mb-5"
               style={{
@@ -151,23 +170,39 @@ export default function Login() {
                 border: "1px solid color-mix(in oklab, var(--primary) 20%, transparent)",
               }}
             >
-              <img src={MASCOT_GIF} alt="" className="w-11 h-11 object-contain flex-shrink-0" />
-              <p
-                className="text-[12px] font-black leading-snug whitespace-pre-line"
-                style={{ color: "var(--foreground)", fontFamily: "'Space Grotesk', sans-serif" }}
-              >
-                {greeting}
-              </p>
+              <img src={LOGO_IMG} alt="Indian Lens Wholesale" className="w-10 h-10 object-contain flex-shrink-0" />
+              <div>
+                <p
+                  className="text-[12px] font-black leading-tight"
+                  style={{ color: "var(--primary-glow)", fontFamily: "'Space Grotesk', sans-serif" }}
+                >
+                  {greeting.line1}
+                </p>
+                <p className="text-[11px] mt-0.5" style={{ color: "var(--muted-foreground)" }}>
+                  {greeting.line2}
+                </p>
+              </div>
             </div>
 
-            {/* Logo */}
-            <div className="mb-6">
-              <img src={LOGO_IMG} alt="Indian Lens Wholesale" className="h-20 w-auto object-contain" />
+            {/* Logo + brand name */}
+            <div className="mb-5 flex flex-col items-center gap-3">
+              <img src={LOGO_IMG} alt="Indian Lens Wholesale" className="h-16 w-16 object-contain" />
+              <div className="text-center">
+                <h1
+                  className="text-lg font-bold leading-tight text-gradient"
+                  style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                >
+                  Indian Lens Wholesale
+                </h1>
+                <p className="text-[11px] mt-0.5" style={{ color: "var(--muted-foreground)" }}>
+                  Optical Management Platform
+                </p>
+              </div>
             </div>
 
             {/* Separator */}
             <div
-              className="w-full h-px mb-6"
+              className="w-full h-px mb-5"
               style={{ background: "linear-gradient(to right, transparent, color-mix(in oklab, var(--foreground) 12%, transparent), transparent)" }}
             />
 
@@ -192,7 +227,7 @@ export default function Login() {
               <div className="field-1">
                 <input
                   type="email"
-                  placeholder="Username"
+                  placeholder="Username / Email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   onKeyDown={e => e.key === "Enter" && handleSubmit(e)}
@@ -250,24 +285,20 @@ export default function Login() {
                   onMouseEnter={e => { if (!loading) e.currentTarget.style.transform = "translateY(-1px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}
                 >
-                  {loading ? <><div className="btn-spin" /> Logging in...</> : "Login"}
+                  {loading ? <><div className="btn-spin" /> Signing in...</> : "Sign In"}
                 </button>
               </div>
 
             </div>
 
             {/* Footer */}
-            <div className="mt-6">
-              <a href="https://digibysr.com" target="_blank" rel="noopener noreferrer">
-                <img
-                  src={LOGO_IMG}
-                  alt="Indian Lens Wholesale by DigiBySR"
-                  className="h-5 w-auto object-contain transition-opacity"
-                  style={{ opacity: 0.35 }}
-                  onMouseEnter={e => { e.currentTarget.style.opacity = 0.65; }}
-                  onMouseLeave={e => { e.currentTarget.style.opacity = 0.35; }}
-                />
-              </a>
+            <div className="mt-6 text-center">
+              <p
+                className="text-[11px]"
+                style={{ color: "color-mix(in oklab, var(--muted-foreground) 60%, transparent)" }}
+              >
+                © {new Date().getFullYear()} Indian Lens Wholesale. All rights reserved.
+              </p>
             </div>
 
           </div>

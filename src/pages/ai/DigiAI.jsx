@@ -544,8 +544,8 @@ export default function DigiAIPage() {
             overflow: "hidden",
           }}>
             <img
-              src="https://digibysr.com/wp-content/uploads/2025/08/DigiOptics-Character_low.gif"
-              alt="AI"
+              src="/ilw-ai-avatar.png"
+              alt="Indian Lens Wholesale AI"
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           </div>

@@ -198,7 +198,7 @@ export const buildInvoiceData = (jobCard, products = [], prescription = [], stor
     total: jobCard.total - jobCard.additionalDiscount,
     advance: jobCard.advance, balance: jobCard.balance,
     ttype: jobCard.transactionType,
-    logoUrl: store.logo || "https://digibysr.com/wp-content/uploads/2025/01/DigiOptics.png",
+    logoUrl: store.logo || "/ilw-logo-icon.png",
     prescription,
   };
 };
