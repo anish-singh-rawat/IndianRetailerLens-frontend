@@ -303,7 +303,16 @@ const buildFullDetailsHtml = (jc, products, prescription, activePrescription, au
 // ─── Shared primitives ────────────────────────────────────────────────────────
 const Modal = ({ children, onClose, maxWidth = "max-w-5xl" }) => (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4" onClick={onClose}>
-    <div className={`bg-white w-full ${maxWidth} max-h-[92vh] rounded-2xl shadow-2xl flex flex-col animate-fadeIn`} onClick={e => e.stopPropagation()}>
+    <div
+      className={`w-full ${maxWidth} max-h-[92vh] rounded-2xl flex flex-col animate-fadeIn`}
+      style={{
+        background: "color-mix(in oklab, var(--card) 88%, transparent)",
+        backdropFilter: "blur(24px) saturate(160%)",
+        border: "1px solid color-mix(in oklab, var(--foreground) 12%, transparent)",
+        boxShadow: "0 24px 80px -16px oklch(0 0 0 / 60%)",
+      }}
+      onClick={e => e.stopPropagation()}
+    >
       {children}
     </div>
     <style>{`@keyframes fadeIn{from{opacity:0;transform:scale(.97) translateY(6px)}to{opacity:1;transform:scale(1) translateY(0)}}.animate-fadeIn{animation:fadeIn .18s ease both}`}</style>
@@ -311,19 +320,28 @@ const Modal = ({ children, onClose, maxWidth = "max-w-5xl" }) => (
 );
 
 const ModalHeader = ({ title, subtitle, onClose, onPrint }) => (
-  <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 flex-shrink-0">
+  <div
+    className="flex items-center justify-between px-6 py-4 flex-shrink-0"
+    style={{ borderBottom: "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)" }}
+  >
     <div>
-      <h2 className="text-sm font-bold text-gray-800">{title}</h2>
-      {subtitle && <p className="text-xs text-gray-400 mt-0.5">{subtitle}</p>}
+      <h2 className="text-sm font-bold" style={{ color: "var(--foreground)" }}>{title}</h2>
+      {subtitle && <p className="text-xs mt-0.5" style={{ color: "var(--muted-foreground)" }}>{subtitle}</p>}
     </div>
     <div className="flex items-center gap-1.5">
       {onPrint && (
         <button onClick={onPrint}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-orange-500 bg-orange-50 hover:bg-orange-100 rounded-lg transition">
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition"
+          style={{ color: "var(--primary)", background: "color-mix(in oklab, var(--primary) 14%, transparent)" }}>
           <FiPrinter size={12} /> Print
         </button>
       )}
-      <button onClick={onClose} className="p-2 rounded-full text-gray-400 hover:bg-gray-100 transition">
+      <button onClick={onClose}
+        className="p-2 rounded-full transition"
+        style={{ color: "var(--muted-foreground)" }}
+        onMouseEnter={e => e.currentTarget.style.background = "color-mix(in oklab, var(--foreground) 8%, transparent)"}
+        onMouseLeave={e => e.currentTarget.style.background = "transparent"}
+      >
         <FiX size={15} />
       </button>
     </div>
@@ -331,22 +349,28 @@ const ModalHeader = ({ title, subtitle, onClose, onPrint }) => (
 );
 
 const ModalFooter = ({ children }) => (
-  <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-100 bg-gray-50/60 rounded-b-2xl flex-shrink-0">
+  <div
+    className="flex items-center justify-end gap-3 px-6 py-4 rounded-b-2xl flex-shrink-0"
+    style={{
+      borderTop: "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)",
+      background: "color-mix(in oklab, var(--foreground) 3%, transparent)",
+    }}
+  >
     {children}
   </div>
 );
 
 const SectionTitle = ({ children }) => (
   <div className="flex items-center gap-2 mb-4">
-    <div className="w-0.5 h-4 bg-orange-400 rounded-full" />
-    <span className="text-[10px] font-bold text-gray-800 uppercase tracking-widest">{children}</span>
+    <div className="w-0.5 h-4 rounded-full" style={{ background: "var(--primary)" }} />
+    <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "var(--foreground)" }}>{children}</span>
   </div>
 );
 
 const InfoRow = ({ label, value }) => (
   <div>
-    <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">{label}</p>
-    <p className="text-sm font-semibold text-gray-800">{value ?? "-"}</p>
+    <p className="text-[10px] font-semibold uppercase tracking-wide mb-0.5" style={{ color: "var(--muted-foreground)" }}>{label}</p>
+    <p className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>{value ?? "-"}</p>
   </div>
 );
 
@@ -367,33 +391,46 @@ const StatusBadge = ({ value }) => {
 };
 
 // ─── Stat card ────────────────────────────────────────────────────────────────
+const STAT_COLORS = {
+  orange: { accent: "oklch(0.72 0.18 42)", ring: "color-mix(in oklab, oklch(0.72 0.18 42) 40%, transparent)" },
+  emerald: { accent: "oklch(0.72 0.18 162)", ring: "color-mix(in oklab, oklch(0.72 0.18 162) 40%, transparent)" },
+  blue: { accent: "oklch(0.65 0.19 250)", ring: "color-mix(in oklab, oklch(0.65 0.19 250) 40%, transparent)" },
+  purple: { accent: "oklch(0.65 0.22 295)", ring: "color-mix(in oklab, oklch(0.65 0.22 295) 40%, transparent)" },
+  amber: { accent: "oklch(0.78 0.20 72)", ring: "color-mix(in oklab, oklch(0.78 0.20 72) 40%, transparent)" },
+  gray: { accent: "var(--muted-foreground)", ring: "color-mix(in oklab, var(--muted-foreground) 30%, transparent)" },
+};
 const StatCard = ({ label, value, icon: Icon, color, onClick, active }) => {
-  const map = {
-    orange: { bg: "bg-orange-50", icon: "text-orange-500", ring: "ring-orange-200" },
-    emerald: { bg: "bg-emerald-50", icon: "text-emerald-500", ring: "ring-emerald-200" },
-    blue: { bg: "bg-blue-50", icon: "text-blue-500", ring: "ring-blue-200" },
-    purple: { bg: "bg-purple-50", icon: "text-purple-500", ring: "ring-purple-200" },
-    amber: { bg: "bg-amber-50", icon: "text-amber-500", ring: "ring-amber-200" },
-    gray: { bg: "bg-gray-100", icon: "text-gray-500", ring: "ring-gray-200" },
-  };
-  const c = map[color] || map.orange;
+  const c = STAT_COLORS[color] || STAT_COLORS.orange;
   return (
-    <div onClick={onClick}
-      className={`bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4 transition
-                ${onClick ? "cursor-pointer hover:shadow-md hover:-translate-y-0.5" : ""}
-                ${active ? `ring-2 ${c.ring}` : ""}`}>
-      <div className={`w-11 h-11 rounded-xl ${c.bg} flex items-center justify-center flex-shrink-0`}>
-        <Icon size={18} className={c.icon} />
+    <div
+      onClick={onClick}
+      className={`rounded-2xl p-5 flex items-center gap-4 transition ${onClick ? "cursor-pointer hover:-translate-y-0.5" : ""}`}
+      style={{
+        background: "color-mix(in oklab, var(--card) 72%, transparent)",
+        backdropFilter: "blur(20px) saturate(160%)",
+        border: active
+          ? `2px solid ${c.ring}`
+          : "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)",
+        boxShadow: active
+          ? `0 0 0 1px ${c.ring}, 0 8px 24px -8px ${c.ring}`
+          : "0 2px 12px -4px oklch(0 0 0 / 30%)",
+      }}
+    >
+      <div
+        className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+        style={{ background: `color-mix(in oklab, ${c.accent} 18%, transparent)` }}
+      >
+        <Icon size={18} style={{ color: c.accent }} />
       </div>
       <div>
-        <p className="text-2xl font-bold text-gray-800 leading-none">{value}</p>
-        <p className="text-xs text-gray-400 mt-1">{label}</p>
+        <p className="text-2xl font-bold leading-none" style={{ color: "var(--foreground)" }}>{value}</p>
+        <p className="text-xs mt-1" style={{ color: "var(--muted-foreground)" }}>{label}</p>
       </div>
     </div>
   );
 };
 
-const inputCls = "w-full px-3 py-2 text-sm border border-gray-300 rounded-xl outline-none focus:border-orange-300 focus:ring-2 focus:ring-orange-100 hover:border-gray-400 bg-gray-50 text-gray-700 transition";
+const inputCls = "dark-input";
 const labelCls = "text-[10px] font-semibold text-gray-400 uppercase tracking-wider block mb-1";
 
 // ─── Dashboard ────────────────────────────────────────────────────────────────
@@ -666,7 +703,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen space-y-6">
+    <div className="p-4 space-y-6">
 
       {/* ── Stat Cards ── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -692,14 +729,31 @@ const Dashboard = () => {
 
       {/* ── Job Cards Table ── */}
       {selectedFilter && (
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div
+          className="rounded-2xl overflow-hidden"
+          style={{
+            background: "color-mix(in oklab, var(--card) 72%, transparent)",
+            backdropFilter: "blur(20px) saturate(160%)",
+            border: "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)",
+          }}
+        >
 
           {/* Top bar */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+          <div
+            className="flex items-center justify-between px-5 py-4"
+            style={{ borderBottom: "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)" }}
+          >
             <div className="flex items-center gap-2">
-              <div className="w-0.5 h-4 bg-orange-400 rounded-full" />
-              <span className="text-sm font-bold text-gray-800">Job Cards</span>
-              <span className="px-2 py-0.5 rounded-full bg-orange-50 text-orange-600 text-[10px] font-bold border border-orange-100">
+              <div className="w-0.5 h-4 rounded-full" style={{ background: "var(--primary)" }} />
+              <span className="text-sm font-bold" style={{ color: "var(--foreground)" }}>Job Cards</span>
+              <span
+                className="px-2 py-0.5 rounded-full text-[10px] font-bold"
+                style={{
+                  color: "var(--primary)",
+                  background: "color-mix(in oklab, var(--primary) 14%, transparent)",
+                  border: "1px solid color-mix(in oklab, var(--primary) 25%, transparent)",
+                }}
+              >
                 {filterLabel}
               </span>
             </div>
@@ -710,7 +764,13 @@ const Dashboard = () => {
             <table className="w-full text-sm border-collapse">
               <thead>
                 {table.getHeaderGroups().map(hg => (
-                  <tr key={hg.id} className="bg-gray-200 border-b border-gray-800 border-gray-100">
+                  <tr
+                    key={hg.id}
+                    style={{
+                      background: "color-mix(in oklab, var(--foreground) 6%, transparent)",
+                      borderBottom: "1px solid color-mix(in oklab, var(--foreground) 12%, transparent)",
+                    }}
+                  >
                     {hg.headers.map(h => (
                       <th key={h.id} className="px-4 py-3 text-center text-xs font-semibold text-gray-800 whitespace-nowrap uppercase tracking-wider">
                         {flexRender(h.column.columnDef.header, h.getContext())}
@@ -724,9 +784,15 @@ const Dashboard = () => {
                   <tr><td colSpan={columns.length} className="py-14 text-center text-gray-400 text-sm">No job cards found</td></tr>
                 )}
                 {table.getRowModel().rows.map(row => (
-                  <tr key={row.id} className="border-b border-gray-50 text-center hover:bg-orange-50 transition-colors">
+                  <tr
+                    key={row.id}
+                    className="text-center transition-colors"
+                    style={{ borderBottom: "1px solid color-mix(in oklab, var(--foreground) 6%, transparent)" }}
+                    onMouseEnter={e => e.currentTarget.style.background = "color-mix(in oklab, var(--primary) 6%, transparent)"}
+                    onMouseLeave={e => e.currentTarget.style.background = "transparent"}
+                  >
                     {row.getVisibleCells().map(cell => (
-                      <td key={cell.id} className="px-4 py-2.5 text-gray-700 whitespace-nowrap text-sm">
+                      <td key={cell.id} className="px-4 py-2.5 whitespace-nowrap text-sm" style={{ color: "var(--foreground)" }}>
                         {flexRender(cell.column.columnDef.cell ?? cell.column.columnDef.accessorKey, cell.getContext())}
                       </td>
                     ))}
@@ -737,10 +803,16 @@ const Dashboard = () => {
           </div>
 
           {/* Pagination */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-5 py-4 border-t border-gray-100">
+          <div
+            className="flex flex-col sm:flex-row items-center justify-between gap-3 px-5 py-4"
+            style={{ borderTop: "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)" }}
+          >
             <button onClick={handleLoadMore} disabled={!hasMore || loadingMore}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition
-                                ${loadingMore || !hasMore ? "bg-gray-100 text-gray-400 cursor-not-allowed" : "bg-orange-500 hover:bg-orange-600 text-white"}`}>
+              className="px-4 py-2 rounded-xl text-xs font-semibold transition"
+              style={loadingMore || !hasMore
+                ? { background: "color-mix(in oklab, var(--foreground) 8%, transparent)", color: "var(--muted-foreground)", cursor: "not-allowed" }
+                : { background: "linear-gradient(135deg, var(--primary) 0%, var(--primary-glow) 100%)", color: "var(--primary-foreground)" }
+              }>
               {loadingMore ? "Loading..." : "Load More"}
             </button>
             <div className="flex items-center gap-1">

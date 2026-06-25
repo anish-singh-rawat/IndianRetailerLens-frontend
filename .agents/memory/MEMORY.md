@@ -1,0 +1,2 @@
+- [Dark theme CSS-variable scope](dark-theme-scope.md) — `dark` class must be on `<html>` for CSS vars to resolve globally; AppLayout-only scoping breaks portals and body background.
+- [Tailwind v4 dark override approach](tailwind-v4-dark-overrides.md) — use `[class*="bg-white"]` attr selector for opacity variants; `!important` in unlayered CSS beats non-important layered Tailwind utilities.

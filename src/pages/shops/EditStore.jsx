@@ -50,12 +50,12 @@ const getPermissionsFromPages = (selectedPages) => {
 };
 
 // shared style tokens
-const inp = "w-full bg-white border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm text-gray-800 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all placeholder-gray-300";
+const inp = "dark-input px-3.5 py-2.5";
 const lbl = "text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1.5";
 const err = "text-[11px] text-red-500 font-semibold mt-1";
-const sectionCls = "bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden";
-const sHeaderCls = "flex items-center justify-between px-5 py-3.5 border-b border-gray-50 bg-gradient-to-r from-gray-50/80 to-white";
-const iconCls = "absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-orange-400 transition-colors pointer-events-none";
+const sectionCls = "glass-card overflow-hidden";
+const sHeaderCls = "glass-card-header";
+const iconCls = "absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" ;
 
 export default function EditStore() {
   const { storeId } = useParams();
@@ -259,10 +259,16 @@ export default function EditStore() {
   // ── toggle helper ─────────────────────────────────────────────────────────
   const toggle = (key, label, onChangeFn) => (
     <label className="flex items-center gap-3 cursor-pointer select-none" onClick={onChangeFn}>
-      <div className={`w-11 h-6 rounded-full relative transition-all duration-200 ${form[key] ? "bg-orange-500" : "bg-gray-200"}`}>
-        <div className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow-md transition-all duration-200 ${form[key] ? "left-6" : "left-1"}`} />
+      <div
+        className="w-11 h-6 rounded-full relative transition-all duration-200"
+        style={{ background: form[key] ? "var(--primary)" : "color-mix(in oklab, var(--foreground) 18%, transparent)" }}
+      >
+        <div
+          className={`absolute top-1 w-4 h-4 rounded-full shadow-md transition-all duration-200 ${form[key] ? "left-6" : "left-1"}`}
+          style={{ background: "oklch(0.96 0.005 220)" }}
+        />
       </div>
-      <span className={`text-sm font-semibold transition-colors ${form[key] ? "text-gray-800" : "text-gray-400"}`}>{label}</span>
+      <span className="text-sm font-semibold transition-colors" style={{ color: form[key] ? "var(--foreground)" : "var(--muted-foreground)" }}>{label}</span>
     </label>
   );
 
@@ -595,11 +601,11 @@ export default function EditStore() {
                     <div className="bg-emerald-50 border border-emerald-100 rounded-xl overflow-hidden">
                       <div className="px-3 py-2 border-b border-emerald-100 flex items-center justify-between">
                         <p className="text-[10px] font-black text-emerald-700 uppercase tracking-widest">Auto Permissions</p>
-                        <span className="text-[10px] font-black text-emerald-600 bg-white border border-emerald-200 px-2 py-0.5 rounded-full">{permissions.length} granted</span>
+                        <span className="text-[10px] font-black text-emerald-400 px-2 py-0.5 rounded-full" style={{ background: "color-mix(in oklab, oklch(0.72 0.18 162) 16%, transparent)", border: "1px solid color-mix(in oklab, oklch(0.72 0.18 162) 25%, transparent)" }}>{permissions.length} granted</span>
                       </div>
                       <div className="p-2.5 flex flex-wrap gap-1.5">
                         {permissions.map(p => (
-                          <span key={p} className="text-[9px] font-bold bg-white border border-emerald-200 text-emerald-700 px-2 py-1 rounded-lg leading-none">{p}</span>
+                          <span key={p} className="text-[9px] font-bold text-emerald-400 px-2 py-1 rounded-lg leading-none" style={{ background: "color-mix(in oklab, oklch(0.72 0.18 162) 12%, transparent)", border: "1px solid color-mix(in oklab, oklch(0.72 0.18 162) 20%, transparent)" }}>{p}</span>
                         ))}
                       </div>
                     </div>

@@ -99,8 +99,15 @@ export default function Navbar({ toggleSidebar }) {
           boxShadow: "0 0 0 1px color-mix(in oklab, var(--primary) 15%, transparent), 0 4px 24px -4px color-mix(in oklab, var(--primary) 20%, transparent)",
         }}
       >
-        {/* LEFT: Title + Breadcrumb */}
-        <div className="min-w-0">
+        {/* LEFT: Logo + Title + Breadcrumb */}
+        <div className="flex items-center gap-3 min-w-0">
+          <img
+            src="/ilw-logo-icon.png"
+            alt="ILW"
+            className="w-7 h-7 rounded-lg object-contain flex-shrink-0"
+            style={{ filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--primary) 40%, transparent))" }}
+          />
+          <div className="min-w-0">
           <h1
             className="text-sm font-bold leading-tight truncate"
             style={{ fontFamily: "'Space Grotesk', sans-serif", color: "var(--foreground)" }}
@@ -127,6 +134,7 @@ export default function Navbar({ toggleSidebar }) {
               </span>
             ))}
           </nav>
+          </div>
         </div>
 
         {/* RIGHT */}

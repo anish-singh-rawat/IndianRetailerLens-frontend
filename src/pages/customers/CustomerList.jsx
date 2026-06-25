@@ -21,8 +21,18 @@ const PAGE_SIZE = 100;
 // Shared UI primitives
 // ─────────────────────────────────────────────────────────────────────────────
 const Modal = ({ onClose, children, maxWidth = "max-w-lg" }) => (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4" onClick={onClose}>
-        <div className={`relative bg-white rounded-2xl shadow-2xl w-full ${maxWidth} animate-fadeIn`} onClick={e => e.stopPropagation()}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4" onClick={onClose}>
+        <div
+            className={`relative w-full ${maxWidth} animate-fadeIn`}
+            style={{
+                background: "color-mix(in oklab, var(--card) 88%, transparent)",
+                backdropFilter: "blur(24px) saturate(160%)",
+                border: "1px solid color-mix(in oklab, var(--foreground) 12%, transparent)",
+                boxShadow: "0 24px 80px -16px oklch(0 0 0 / 60%)",
+                borderRadius: "1rem",
+            }}
+            onClick={e => e.stopPropagation()}
+        >
             {children}
         </div>
         <style>{`
@@ -33,26 +43,52 @@ const Modal = ({ onClose, children, maxWidth = "max-w-lg" }) => (
 );
 
 const ModalHeader = ({ title, subtitle, onClose, icon }) => (
-    <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-gray-100">
+    <div
+        className="flex items-center justify-between px-6 pt-5 pb-4"
+        style={{ borderBottom: "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)" }}
+    >
         <div className="flex items-center gap-2.5">
-            {icon && <div className="w-9 h-9 rounded-xl bg-orange-100 flex items-center justify-center">{icon}</div>}
+            {icon && (
+                <div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center"
+                    style={{ background: "color-mix(in oklab, var(--primary) 16%, transparent)", color: "var(--primary)" }}
+                >
+                    {icon}
+                </div>
+            )}
             <div>
-                <h2 className="text-sm font-bold text-gray-800">{title}</h2>
-                {subtitle && <p className="text-xs text-gray-400 mt-0.5">{subtitle}</p>}
+                <h2 className="text-sm font-bold" style={{ color: "var(--foreground)" }}>{title}</h2>
+                {subtitle && <p className="text-xs mt-0.5" style={{ color: "var(--muted-foreground)" }}>{subtitle}</p>}
             </div>
         </div>
-        <button onClick={onClose} className="p-2 rounded-full text-gray-400 hover:bg-gray-100 transition"><FiX size={15} /></button>
+        <button
+            onClick={onClose}
+            className="p-2 rounded-full transition"
+            style={{ color: "var(--muted-foreground)" }}
+            onMouseEnter={e => e.currentTarget.style.background = "color-mix(in oklab, var(--foreground) 8%, transparent)"}
+            onMouseLeave={e => e.currentTarget.style.background = "transparent"}
+        >
+            <FiX size={15} />
+        </button>
     </div>
 );
 
 const ModalFooter = ({ children }) => (
-    <div className="flex items-center justify-end gap-2 px-6 py-4 border-t border-gray-100 bg-gray-50/60 rounded-b-2xl">{children}</div>
+    <div
+        className="flex items-center justify-end gap-2 px-6 py-4 rounded-b-2xl"
+        style={{
+            borderTop: "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)",
+            background: "color-mix(in oklab, var(--foreground) 3%, transparent)",
+        }}
+    >
+        {children}
+    </div>
 );
 
 const InfoRow = ({ label, value }) => (
     <div>
-        <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">{label}</p>
-        <p className="text-sm font-semibold text-gray-800">{value || "-"}</p>
+        <p className="text-[10px] font-semibold uppercase tracking-wide mb-0.5" style={{ color: "var(--muted-foreground)" }}>{label}</p>
+        <p className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>{value || "-"}</p>
     </div>
 );
 

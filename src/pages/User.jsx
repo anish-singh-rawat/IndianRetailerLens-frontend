@@ -158,9 +158,22 @@ export default function UserManagement() {
   const activeUsers = users.filter((u) => u.isActive !== false).length;
   const inactiveUsers = users.length - activeUsers;
 
-  return (
-    <div className="min-h-screen bg-[#f7f8fa] p-5 space-y-5">
+  const glassCard = {
+    background: "color-mix(in oklab, var(--card) 72%, transparent)",
+    backdropFilter: "blur(20px) saturate(160%)",
+    border: "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)",
+  };
+  const cardHeader = {
+    borderBottom: "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)",
+  };
+  const accentIcon = {
+    background: "color-mix(in oklab, var(--primary) 14%, transparent)",
+    border: "1px solid color-mix(in oklab, var(--primary) 25%, transparent)",
+    color: "var(--primary)",
+  };
 
+  return (
+    <div className="p-5 space-y-5">
 
       {/* ── Content grid ────────────────────────────────────────────────── */}
       <div className={`grid grid-cols-1 gap-5 ${canManageUsers ? "lg:grid-cols-4" : ""}`}>
@@ -168,14 +181,14 @@ export default function UserManagement() {
         {/* Sidebar: Add/Edit User form */}
         {canManageUsers && (
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden h-full">
+            <div className="rounded-2xl overflow-hidden h-full" style={glassCard}>
 
               {/* Form header */}
-              <div className="px-5 py-4 border-b border-gray-50 flex items-center gap-2.5">
-                <span className="w-6 h-6 rounded-lg bg-orange-50 border border-orange-100 text-orange-500 flex items-center justify-center">
+              <div className="px-5 py-4 flex items-center gap-2.5" style={cardHeader}>
+                <span className="w-6 h-6 rounded-lg flex items-center justify-center" style={accentIcon}>
                   <Ico.Plus />
                 </span>
-                <span className="text-xs font-bold text-gray-700">Add / Edit User</span>
+                <span className="text-xs font-bold" style={{ color: "var(--foreground)" }}>Add / Edit User</span>
               </div>
 
               <div className="p-5">
@@ -192,17 +205,24 @@ export default function UserManagement() {
 
         {/* Main: Users table */}
         <div className={canManageUsers ? "lg:col-span-3" : "lg:col-span-4"}>
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <div className="rounded-2xl overflow-hidden" style={glassCard}>
 
             {/* Table header */}
-            <div className="px-5 py-4 border-b border-gray-50 flex items-center justify-between">
+            <div className="px-5 py-4 flex items-center justify-between" style={cardHeader}>
               <div className="flex items-center gap-2.5">
-                <span className="w-6 h-6 rounded-lg bg-orange-50 border border-orange-100 text-orange-500 flex items-center justify-center">
+                <span className="w-6 h-6 rounded-lg flex items-center justify-center" style={accentIcon}>
                   <Ico.Users />
                 </span>
-                <span className="text-xs font-bold text-gray-700">All Users</span>
+                <span className="text-xs font-bold" style={{ color: "var(--foreground)" }}>All Users</span>
               </div>
-              <span className="text-[10px] font-bold text-gray-400 bg-gray-50 border border-gray-100 px-2.5 py-1 rounded-full">
+              <span
+                className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+                style={{
+                  color: "var(--muted-foreground)",
+                  background: "color-mix(in oklab, var(--foreground) 6%, transparent)",
+                  border: "1px solid color-mix(in oklab, var(--foreground) 10%, transparent)",
+                }}
+              >
                 {users.length} records
               </span>
             </div>

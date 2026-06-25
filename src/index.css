@@ -579,6 +579,90 @@
 .dark .bg-\[\#fafaf8\],
 .dark .bg-\[\#fafafa\],
 .dark .bg-\[\#f8f8f8\],
-.dark .bg-\[\#f5f5f5\] {
+.dark .bg-\[\#f5f5f5\],
+.dark .bg-\[\#f7f8fa\],
+.dark .bg-\[\#f4f4f4\],
+.dark .bg-\[\#f9f9f9\] {
   background: transparent !important;
+}
+
+/* ── Attribute selectors — catch ALL opacity variants (bg-white/50, etc.) ── */
+/* These use [class*="..."] to match Tailwind's slash-modified class names */
+.dark [class*="bg-white"] {
+  background: color-mix(in oklab, var(--card) 72%, transparent) !important;
+}
+.dark [class*="bg-stone-50/"],
+.dark [class*="bg-gray-50/"],
+.dark [class*="bg-gray-100/"],
+.dark [class*="bg-stone-100/"] {
+  background: color-mix(in oklab, var(--card) 38%, transparent) !important;
+}
+
+/* ── html.dark ensures CSS variables resolve globally (portals, body, etc.) ── */
+html.dark {
+  color-scheme: dark;
+}
+html.dark body {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+/* ── SweetAlert2 dark theme ─────────────────────────────────── */
+.swal2-popup {
+  background: color-mix(in oklab, var(--card) 92%, transparent) !important;
+  color: var(--foreground) !important;
+  border: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent) !important;
+  backdrop-filter: blur(20px) !important;
+}
+.swal2-title { color: var(--foreground) !important; }
+.swal2-html-container { color: var(--muted-foreground) !important; }
+.swal2-confirm {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-glow) 100%) !important;
+  color: var(--primary-foreground) !important;
+}
+.swal2-cancel {
+  background: color-mix(in oklab, var(--foreground) 10%, transparent) !important;
+  color: var(--foreground) !important;
+}
+
+/* ── React-Toastify dark theme ──────────────────────────────── */
+.Toastify__toast {
+  background: color-mix(in oklab, var(--card) 90%, transparent) !important;
+  color: var(--foreground) !important;
+  border: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+/* ── Glass card utility for JS-accessible className strings ─── */
+.glass-card {
+  background: color-mix(in oklab, var(--card) 72%, transparent);
+  backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
+  border-radius: 1rem;
+}
+.glass-card-header {
+  background: color-mix(in oklab, var(--primary) 10%, transparent);
+  border-bottom: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
+  padding: 0.875rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.dark-input {
+  width: 100%;
+  background: color-mix(in oklab, var(--foreground) 6%, transparent);
+  border: 1px solid color-mix(in oklab, var(--foreground) 14%, transparent);
+  border-radius: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.dark-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 20%, transparent);
+}
+.dark-input::placeholder {
+  color: color-mix(in oklab, var(--muted-foreground) 60%, transparent);
 }
